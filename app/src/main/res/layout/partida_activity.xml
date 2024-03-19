@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Partida">
+
+    <FrameLayout
+        android:id="@+id/btnPiedraContainer"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/txtResultado"
+        app:layout_constraintDimensionRatio="h,1:1"
+        app:layout_constraintEnd_toStartOf="@+id/btnPapelContainer"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/btnPiedra"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent" /> <!-- Botón transparente -->
+
+        <ImageView
+            android:id="@+id/imgPiedra"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/piedra"
+            android:contentDescription="@null" /> <!-- Imagen -->
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/btnPapelContainer"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        app:layout_constraintBottom_toTopOf="@+id/txtResultado"
+        app:layout_constraintStart_toEndOf="@+id/btnPiedraContainer"
+        app:layout_constraintEnd_toStartOf="@+id/btnTijeraContainer"
+        android:layout_marginBottom="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp">
+
+        <Button
+            android:id="@+id/btnPapel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent" />
+
+        <ImageView
+            android:id="@+id/imgPapel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/papel"
+            android:contentDescription="@null" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/btnTijeraContainer"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        app:layout_constraintBottom_toTopOf="@+id/txtResultado"
+        app:layout_constraintStart_toEndOf="@+id/btnPapelContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="32dp"
+        android:layout_marginStart="16dp">
+
+        <Button
+            android:id="@+id/btnTijera"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent" />
+
+        <ImageView
+            android:id="@+id/imgTijera"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/tijera"
+            android:contentDescription="@null" />
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/txtResultado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/txtContador"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@+id/txtResultado"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="center"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txtIntentos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@+id/txtContador"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="center"/>
+
+    <TextView
+        android:id="@+id/txtNombreJugador"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtResultado"
+        android:gravity="bottom|start"
+        android:textStyle="bold" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
