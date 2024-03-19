@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Salir de la aplicación
-                finish();
+                finishAffinity(); // Cerrar todas las actividades de la aplicación
             }
         });
     }

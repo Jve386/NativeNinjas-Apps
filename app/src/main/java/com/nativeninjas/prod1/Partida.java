@@ -97,9 +97,9 @@ public class Partida extends AppCompatActivity {
             txtResultado.setText("¡Perdiste!\n" + movimientoComputadoraTexto);
             intentos--;
             if (intentos == 0) {
-                // Si el jugador pierde todos los Intentos, cerrar la actividad
-                Toast.makeText(Partida.this, "Game Over - Has perdido todos los intentos", Toast.LENGTH_SHORT).show();
-                finish();
+                // Si el jugador pierde todos los Intentos, guardar la puntuación final y abrir la actividad Final
+                guardarPuntuacionFinal(contadorMonedas);
+                return;
             }
             actualizarIntentos();
         }
@@ -110,6 +110,14 @@ public class Partida extends AppCompatActivity {
         // Actualizar el movimiento de la computadora para la siguiente jugada
         movimientoComputadora = opciones[random.nextInt(opciones.length)];
     }
+
+    private void guardarPuntuacionFinal(int puntuacionFinal) {
+        Intent intent = new Intent(this, Final.class);
+        intent.putExtra("puntuacionFinal", puntuacionFinal);
+        startActivity(intent);
+        finish(); // Finalizar la actividad actual
+    }
+
 
     private void actualizarIntentos() {
         txtIntentos.setText("Intentos restantes: " + intentos);
