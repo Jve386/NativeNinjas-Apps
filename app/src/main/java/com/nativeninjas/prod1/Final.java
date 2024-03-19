@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class Final extends AppCompatActivity {
 
-    private TextView txtPuntuacionFinal;
+    private TextView txtPuntuacionFinal, txtRecord, txtPuntuacionMasAlta;
     private Button btnMain, btnSalir, btnReintentar;
 
     @Override
@@ -18,18 +18,35 @@ public class Final extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_final);
 
+        txtPuntuacionMasAlta = findViewById(R.id.txtPuntuacionMasAlta);
         txtPuntuacionFinal = findViewById(R.id.txtPuntuacionFinal);
-
+        txtRecord = findViewById(R.id.txtRecord);
         btnMain = findViewById(R.id.btnMain);
         btnSalir = findViewById(R.id.btnSalir);
         btnReintentar = findViewById(R.id.btnReintentar);
 
 
-
         // Recuperar la puntuación final de la actividad anterior
         int puntuacionFinal = getIntent().getIntExtra("puntuacionFinal", 0);
         txtPuntuacionFinal.setText("Puntuación Final: " + puntuacionFinal);
-        // Configurar el onClickListener para el botón "Volver a Jugar"
+
+        // Obtener la puntuación más alta de la base de datos
+        DatabaseHelper dbHelper = new DatabaseHelper(this);
+        int puntuacionMasAlta = dbHelper.obtenerPuntuacionMasAlta();
+        txtPuntuacionMasAlta.setText("Puntuación más alta: " + puntuacionMasAlta);
+
+        // Comparar la puntuación final con la puntuación más alta
+        if (puntuacionFinal > puntuacionMasAlta) {
+            // Si la puntuación final es mayor, mostrar "Record superado"
+            txtRecord.setText("Record superado");
+        } else {
+            // Si la puntuación final no es mayor, mostrar "Record no superado"
+            txtRecord.setText("Record no superado");
+        }
+
+
+
+        // Botón "Volver a Jugar"
         btnReintentar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

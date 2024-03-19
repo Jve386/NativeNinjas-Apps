@@ -26,6 +26,9 @@
             android:name=".Final"
             android:exported="false" />
         <activity
+            android:name=".Ranking"
+            android:exported="false" />
+        <activity
             android:name=".Splash"
             android:exported="true">
             <intent-filter>

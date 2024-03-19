@@ -4,20 +4,47 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
+    <ImageView
+        android:id="@+id/imagePiPaTi"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/ic_ninja" />
+
     <Button
         android:id="@+id/btnJugar"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:text="Jugar"
+        android:layout_below="@id/imagePiPaTi"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="16dp"
+        android:background="#0000ff"
+        android:text="COMENZAR"
+        android:textSize="30dp"
+        android:textStyle="bold" />
+    <Button
+        android:id="@+id/btnRanking"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnJugar"
+        android:layout_centerHorizontal="true"
+        android:background="#0000ff"
+        android:text="Ranking"
+        android:textSize="30dp"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/btnSalir"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:layout_below="@id/btnRanking"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="#0000ff"
         android:text="Salir"
-        android:layout_below="@id/btnJugar"
-        android:layout_centerHorizontal="true" />
+        android:textSize="30dp"
+        android:textStyle="bold" />
 
 </RelativeLayout>

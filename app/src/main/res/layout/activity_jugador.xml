@@ -78,6 +78,18 @@
                 android:textStyle="bold"
                 android:onClick="onClick">
             </Button>
+            <Button
+                android:id="@+id/btnSalir"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:background="#0000ff"
+                android:text="SALIR"
+                android:textColor="#ffffff"
+                android:layout_marginTop="30dp"
+                android:textSize="30dp"
+                android:textStyle="bold"
+                android:onClick="onClick">
+            </Button>
         </LinearLayout>
 
     </LinearLayout>

@@ -123,14 +123,37 @@
 
     <TextView
         android:id="@+id/txtNombreJugador"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="bottom|start"
-        android:text=""
-        android:textSize="18sp"
+        android:gravity="center_horizontal"
+        android:text="NombreJugador"
+        android:textSize="36sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtResultado" />
+        app:layout_constraintTop_toBottomOf="@+id/txtResultado"/>
+
+    <TextView
+        android:id="@+id/txtRival"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:gravity="center_horizontal"
+        android:text="Rival Anónimo"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btnPiedraContainer"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imgAnonimo"
+        android:layout_centerVertical="true"
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_anonimo" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
