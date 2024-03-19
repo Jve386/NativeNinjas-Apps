@@ -22,6 +22,8 @@ public class Partida extends AppCompatActivity {
     private int contadorMonedas = 0;
     private int intentos = 3;
 
+    private DatabaseHelper databaseHelper; // Agregar una instancia de DatabaseHelper
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,6 +82,9 @@ public class Partida extends AppCompatActivity {
                 jugar("Tijera");
             }
         });
+
+        // Inicializar el DatabaseHelper
+        databaseHelper = new DatabaseHelper(this);
     }
 
     private void jugar(String movimientoJugador) {
@@ -112,6 +117,16 @@ public class Partida extends AppCompatActivity {
     }
 
     private void guardarPuntuacionFinal(int puntuacionFinal) {
+        // Obtener el nombre del jugador
+        String nombreJugador = getIntent().getStringExtra("nombreJugador");
+        // Insertar la puntuación final y el nombre del jugador en la base de datos
+        long id = databaseHelper.insertarJugador(nombreJugador, puntuacionFinal);
+        if (id != -1) {
+            Toast.makeText(this, "Puntuación guardada en la base de datos.", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Error al guardar la puntuación en la base de datos.", Toast.LENGTH_SHORT).show();
+        }
+
         Intent intent = new Intent(this, Final.class);
         intent.putExtra("puntuacionFinal", puntuacionFinal);
         startActivity(intent);
