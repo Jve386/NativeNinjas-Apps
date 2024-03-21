@@ -9,14 +9,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.content.ContentValues;
-import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
-
-import java.util.ArrayList;
-import java.util.List;
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Single;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -51,37 +46,37 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public long insertarJugador(String nombre, int puntuacion, String fecha) {
+    public long insertarJugador(String nombreJugador, int puntuacionFinal, String fecha) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(COLUMN_NOMBRE, nombre);
-        values.put(COLUMN_PUNTUACION, puntuacion);
+        values.put(COLUMN_NOMBRE, nombreJugador);
+        values.put(COLUMN_PUNTUACION, puntuacionFinal);
         values.put(COLUMN_FECHA, fecha);
         long id = db.insert(TABLE_JUGADORES, null, values);
         db.close();
         return id;
     }
 
-    public List<dbJugador> obtenerRanking() {
-        List<dbJugador> ranking = new ArrayList<>();
-        String selectQuery = "SELECT * FROM " + TABLE_JUGADORES + " ORDER BY " + COLUMN_PUNTUACION + " DESC";
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-
-        if (cursor.moveToFirst()) {
-            do {
-                dbJugador jugador = new dbJugador();
-                jugador.setId(cursor.getInt(cursor.getColumnIndex(COLUMN_ID)));
-                jugador.setNombre(cursor.getString(cursor.getColumnIndex(COLUMN_NOMBRE)));
-                jugador.setPuntuacion(cursor.getInt(cursor.getColumnIndex(COLUMN_PUNTUACION)));
-                jugador.setFecha(cursor.getString(cursor.getColumnIndex(COLUMN_FECHA)));
-                ranking.add(jugador);
-            } while (cursor.moveToNext());
-        }
-
-        cursor.close();
-        db.close();
-        return ranking;
+    public Single<List<dbJugador>> obtenerRanking() {
+        return Single.fromCallable(() -> {
+            List<dbJugador> ranking = new ArrayList<>();
+            String selectQuery = "SELECT * FROM " + TABLE_JUGADORES + " ORDER BY " + COLUMN_PUNTUACION + " DESC";
+            SQLiteDatabase db = this.getWritableDatabase();
+            Cursor cursor = db.rawQuery(selectQuery, null);
+            if (cursor.moveToFirst()) {
+                do {
+                    dbJugador jugador = new dbJugador();
+                    jugador.setId(cursor.getInt(cursor.getColumnIndex(COLUMN_ID)));
+                    jugador.setNombre(cursor.getString(cursor.getColumnIndex(COLUMN_NOMBRE)));
+                    jugador.setPuntuacion(cursor.getInt(cursor.getColumnIndex(COLUMN_PUNTUACION)));
+                    jugador.setFecha(cursor.getString(cursor.getColumnIndex(COLUMN_FECHA)));
+                    ranking.add(jugador);
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+            db.close();
+            return ranking;
+        });
     }
 
     // PDTE REVISAR LOGICA PARA QUE MUESTRE

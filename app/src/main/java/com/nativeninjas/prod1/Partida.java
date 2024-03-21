@@ -1,6 +1,7 @@
 package com.nativeninjas.prod1;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -122,6 +123,8 @@ public class Partida extends AppCompatActivity {
     private void guardarPuntuacionFinal(int puntuacionFinal) {
         // Obtener el nombre del jugador
         String nombreJugador = getIntent().getStringExtra("nombreJugador");
+        String fechaActual = obtenerFechaActual();
+        Log.d("Fecha", "Fecha actual: " + fechaActual);
         // Insertar la puntuación final y el nombre del jugador en la base de datos
         long id = databaseHelper.insertarJugador(nombreJugador, puntuacionFinal, fechaActual);
         if (id != -1) {
@@ -144,6 +147,8 @@ public class Partida extends AppCompatActivity {
     private String obtenerFechaActual() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
         Date date = new Date();
-        return dateFormat.format(date);
+        String fechaActual = dateFormat.format(date);
+        Log.d("Fecha", "Fecha actual: " + fechaActual);
+        return fechaActual;
     }
 }
