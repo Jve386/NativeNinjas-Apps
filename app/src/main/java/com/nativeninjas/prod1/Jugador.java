@@ -1,5 +1,6 @@
 package com.nativeninjas.prod1;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -19,7 +21,7 @@ import com.google.android.material.textfield.TextInputEditText;
 public class Jugador extends AppCompatActivity {
 
     private EditText editTextNombre;
-    private Button btnConfirmar;
+    private Button btnConfirmar, btnSalir;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +30,7 @@ public class Jugador extends AppCompatActivity {
 
         editTextNombre = findViewById(R.id.editTextNombre);
         btnConfirmar = findViewById(R.id.btnConfirmar);
+        btnSalir = findViewById(R.id.btnSalir);
 
         btnConfirmar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,5 +51,33 @@ public class Jugador extends AppCompatActivity {
                 }
             }
         });
+
+        btnSalir.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                // Mostrar un diálogo de confirmación antes de salir
+                mostrarDialogoConfirmacion();
+            }
+        });
+    }
+
+    private void mostrarDialogoConfirmacion() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(Jugador.this);
+        builder.setMessage("¿Vas a salir sin echar una partidita?");
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // No hacer nada, simplemente cerrar el diálogo
+                dialog.dismiss();
+            }
+        });
+        builder.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Salir de la aplicación
+                finishAffinity(); // Cerrar todas las actividades de la aplicación
+            }
+        });
+        builder.show();
     }
 }
