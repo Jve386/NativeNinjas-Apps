@@ -5,6 +5,8 @@ public class dbJugador {
     private String nombre;
     private int puntuacion;
 
+    private String fecha;
+
     public int getId() {
         return id;
     }
@@ -27,5 +29,13 @@ public class dbJugador {
 
     public void setPuntuacion(int puntuacion) {
         this.puntuacion = puntuacion;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
     }
 }

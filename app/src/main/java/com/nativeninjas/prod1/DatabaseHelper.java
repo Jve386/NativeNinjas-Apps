@@ -9,6 +9,15 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "rankingJugadores.db";
@@ -18,11 +27,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_ID = "id";
     public static final String COLUMN_NOMBRE = "nombre";
     public static final String COLUMN_PUNTUACION = "puntuacion";
+    public static final String COLUMN_FECHA = "fecha";
 
     private static final String CREATE_TABLE_JUGADORES = "CREATE TABLE " + TABLE_JUGADORES + "(" +
             COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             COLUMN_NOMBRE + " TEXT," +
-            COLUMN_PUNTUACION + " INTEGER" +
+            COLUMN_PUNTUACION + " INTEGER," +
+            COLUMN_FECHA + " TEXT" +
             ")";
 
     public DatabaseHelper(Context context) {
@@ -40,11 +51,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public long insertarJugador(String nombre, int puntuacion) {
+    public long insertarJugador(String nombre, int puntuacion, String fecha) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_NOMBRE, nombre);
         values.put(COLUMN_PUNTUACION, puntuacion);
+        values.put(COLUMN_FECHA, fecha);
         long id = db.insert(TABLE_JUGADORES, null, values);
         db.close();
         return id;
@@ -62,6 +74,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 jugador.setId(cursor.getInt(cursor.getColumnIndex(COLUMN_ID)));
                 jugador.setNombre(cursor.getString(cursor.getColumnIndex(COLUMN_NOMBRE)));
                 jugador.setPuntuacion(cursor.getInt(cursor.getColumnIndex(COLUMN_PUNTUACION)));
+                jugador.setFecha(cursor.getString(cursor.getColumnIndex(COLUMN_FECHA)));
                 ranking.add(jugador);
             } while (cursor.moveToNext());
         }

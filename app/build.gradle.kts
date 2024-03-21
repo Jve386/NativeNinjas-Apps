@@ -38,4 +38,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    implementation ("io.reactivex.rxjava3:rxandroid:3.0.0")
+    implementation ("io.reactivex.rxjava3:rxjava:3.0.13")
+    implementation ("com.squareup.retrofit2:adapter-rxjava3:2.9.0") // para cuando usemos Retrofit
 }

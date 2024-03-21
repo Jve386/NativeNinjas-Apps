@@ -1,5 +1,4 @@
 package com.nativeninjas.prod1;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,11 +9,15 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.ActionBar;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Random;
 
 public class Partida extends AppCompatActivity {
     private Button btnPiedra, btnPapel, btnTijera;
     private String nombreJugador;
+    private String fechaActual = obtenerFechaActual();
     private TextView txtResultado, txtContador, txtIntentos;
     private String[] opciones = {"Piedra", "Papel", "Tijera"};
     private Random random = new Random();
@@ -120,7 +123,7 @@ public class Partida extends AppCompatActivity {
         // Obtener el nombre del jugador
         String nombreJugador = getIntent().getStringExtra("nombreJugador");
         // Insertar la puntuación final y el nombre del jugador en la base de datos
-        long id = databaseHelper.insertarJugador(nombreJugador, puntuacionFinal);
+        long id = databaseHelper.insertarJugador(nombreJugador, puntuacionFinal, fechaActual);
         if (id != -1) {
             Toast.makeText(this, "Puntuación guardada en la base de datos.", Toast.LENGTH_SHORT).show();
         } else {
@@ -136,5 +139,11 @@ public class Partida extends AppCompatActivity {
 
     private void actualizarIntentos() {
         txtIntentos.setText("Intentos restantes: " + intentos);
+    }
+
+    private String obtenerFechaActual() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        Date date = new Date();
+        return dateFormat.format(date);
     }
 }

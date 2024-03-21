@@ -39,7 +39,7 @@ public class Ranking extends AppCompatActivity {
         String[] rankingStrings = new String[ranking.size()];
         for (int i = 0; i < ranking.size(); i++) {
             dbJugador jugador = ranking.get(i);
-            rankingStrings[i] = (i + 1) + ". " + jugador.getNombre() + " - Puntuación: " + jugador.getPuntuacion();
+            rankingStrings[i] = (i + 1) + ". " + jugador.getNombre() + " - Puntuación: " + jugador.getPuntuacion() + " - Fecha: " + jugador.getFecha();
         }
 
         // Crear el adaptador para el ListView
