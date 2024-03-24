@@ -34,18 +34,4 @@ public class PartidaDAO implements DAO<Partida, String> {
         return null;
     }
 
-    @Override
-    public boolean existe(String s) throws SQLiteException {
-        return false;
-    }
-
-    @Override
-    public void onCreate(SQLiteDatabase db) {
-
-    }
-
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
-    }
 }

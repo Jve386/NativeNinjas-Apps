@@ -1,15 +1,14 @@
-<<<<<<< HEAD
+
 package com.nativeninjas.controlador;
 
 import com.nativeninjas.vista.*;
 import com.nativeninjas.modelo.Datos;
-=======
-package com.example.piedrapapeltijera.controlador;
 
-import com.example.piedrapapeltijera.Vistas.Vista;
-import com.example.piedrapapeltijera.Vistas.VistaPrincipal;
-import com.example.piedrapapeltijera.modelo.Datos;
->>>>>>> 624b1fe91fddbaf159ccc3246799c4a384cbad6f
+import java.util.ArrayList;
+import java.util.List;
+
+import io.reactivex.rxjava3.core.Single;
+
 
 public class Controlador {
     private Datos datos;
@@ -24,7 +23,7 @@ public class Controlador {
        return this.datos.getRecordActual(idJugadorActual);
 
     }
-    public String mostrarRanking(){
+    public Single<ArrayList<List<String>>> mostrarRanking(){
         return this.datos.mostrarRanking();
     }
 
@@ -33,11 +32,8 @@ public class Controlador {
 
     }
     public void addVista(){
-<<<<<<< HEAD
+
         this.vista = new Splash();
-=======
-        this.vista = new VistaPrincipal();
->>>>>>> 624b1fe91fddbaf159ccc3246799c4a384cbad6f
 
     }
 
