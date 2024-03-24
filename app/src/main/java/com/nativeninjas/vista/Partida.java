@@ -1,4 +1,4 @@
-package com.nativeninjas.prod1;
+package com.nativeninjas.vista;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +9,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.ActionBar;
+
+import com.nativeninjas.modelo.DatabaseHelper;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -126,7 +128,7 @@ public class Partida extends AppCompatActivity {
         String fechaActual = obtenerFechaActual();
         Log.d("Fecha", "Fecha actual: " + fechaActual);
         // Insertar la puntuación final y el nombre del jugador en la base de datos
-        long id = databaseHelper.insertarJugador(nombreJugador, puntuacionFinal, fechaActual);
+        databaseHelper.insertarJugador(nombreJugador, puntuacionFinal);
         if (id != -1) {
             Toast.makeText(this, "Puntuación guardada en la base de datos.", Toast.LENGTH_SHORT).show();
         } else {

@@ -1,4 +1,4 @@
-package com.nativeninjas.prod1;
+package com.nativeninjas.vista;
 
 import org.junit.Test;
 

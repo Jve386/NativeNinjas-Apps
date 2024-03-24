@@ -1,4 +1,4 @@
-package com.nativeninjas.prod1;
+package com.nativeninjas.vista;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +13,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.nativeninjas.modelo.DatabaseHelper;
 
 import java.util.List;
 
@@ -38,10 +40,13 @@ public class Ranking extends AppCompatActivity {
         listViewRanking = findViewById(R.id.listViewRanking);
 
         // Obtener el ranking de la base de datos usando RxJava
+
+        //**
         disposable = Single.fromCallable(() -> new DatabaseHelper(this).obtenerRanking())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::mostrarRanking, Throwable::printStackTrace);
+        //**
 
         // Configurar el botón para volver al menú anterior
         btnVolver.setOnClickListener(new View.OnClickListener() {
@@ -54,19 +59,22 @@ public class Ranking extends AppCompatActivity {
         });
     }
 
-    private void mostrarRanking(Single<List<dbJugador>> rankingSingle) {
+    //**
+    private void mostrarRanking(Single<List<Usuario>> rankingSingle) {
         disposable = rankingSingle
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::mostrarListaRanking, Throwable::printStackTrace);
     }
+    //**
 
-    private void mostrarListaRanking(List<dbJugador> ranking) {
+    //**
+    private void mostrarListaRanking(List<Usuario> ranking) {
         // Limitar la lista a los 10 primeros jugadores
         ranking = ranking.subList(0, Math.min(ranking.size(), 10));
 
         // Crear un adaptador personalizado para la lista
-        ArrayAdapter<dbJugador> adapter = new ArrayAdapter<dbJugador>(this, android.R.layout.simple_list_item_2, ranking) {
+        ArrayAdapter<Usuario> adapter = new ArrayAdapter<Usuario>(this, android.R.layout.simple_list_item_2, ranking) {
             @NonNull
             @Override
             public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -77,7 +85,7 @@ public class Ranking extends AppCompatActivity {
                 }
 
                 // Obtener el jugador actual
-                dbJugador jugador = getItem(position);
+                Usuario jugador = getItem(position);
 
                 // Configurar el texto para el nombre y la puntuación
                 TextView textViewNombre = view.findViewById(android.R.id.text1);

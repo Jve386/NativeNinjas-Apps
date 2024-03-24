@@ -1,4 +1,4 @@
-package com.nativeninjas.prod1;
+package com.nativeninjas.modelo;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -9,8 +9,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.rxjava3.core.Completable;
-import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Single;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -20,15 +18,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String TABLE_JUGADORES = "jugadores";
     public static final String COLUMN_ID = "id";
-    public static final String COLUMN_NOMBRE = "nombre";
-    public static final String COLUMN_PUNTUACION = "puntuacion";
-    public static final String COLUMN_FECHA = "fecha";
+    public static final String COLUMN_MONEDAS = "monedas";
 
     private static final String CREATE_TABLE_JUGADORES = "CREATE TABLE " + TABLE_JUGADORES + "(" +
-            COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-            COLUMN_NOMBRE + " TEXT," +
-            COLUMN_PUNTUACION + " INTEGER," +
-            COLUMN_FECHA + " TEXT" +
+            COLUMN_ID + " TEXT PRIMARY KEY," +
+            COLUMN_MONEDAS + " INTEGER" +
             ")";
 
     public DatabaseHelper(Context context) {
@@ -46,30 +40,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public long insertarJugador(String nombreJugador, int puntuacionFinal, String fecha) {
+    public void insertarJugador(String nombreJugador, int puntuacionFinal) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(COLUMN_NOMBRE, nombreJugador);
-        values.put(COLUMN_PUNTUACION, puntuacionFinal);
-        values.put(COLUMN_FECHA, fecha);
-        long id = db.insert(TABLE_JUGADORES, null, values);
+        values.put(COLUMN_ID, nombreJugador);
+        values.put(COLUMN_MONEDAS, puntuacionFinal);
+        db.insert(TABLE_JUGADORES, null, values);
         db.close();
-        return id;
     }
 
-    public Single<List<dbJugador>> obtenerRanking() {
+    public Single<List<Usuario>> obtenerRanking() {
         return Single.fromCallable(() -> {
-            List<dbJugador> ranking = new ArrayList<>();
-            String selectQuery = "SELECT * FROM " + TABLE_JUGADORES + " ORDER BY " + COLUMN_PUNTUACION + " DESC";
+            List<Usuario> ranking = new ArrayList<>();
+            String selectQuery = "SELECT * FROM " + TABLE_JUGADORES + " ORDER BY " + COLUMN_MONEDAS + " DESC";
             SQLiteDatabase db = this.getWritableDatabase();
             Cursor cursor = db.rawQuery(selectQuery, null);
             if (cursor.moveToFirst()) {
                 do {
-                    dbJugador jugador = new dbJugador();
-                    jugador.setId(cursor.getInt(cursor.getColumnIndex(COLUMN_ID)));
-                    jugador.setNombre(cursor.getString(cursor.getColumnIndex(COLUMN_NOMBRE)));
-                    jugador.setPuntuacion(cursor.getInt(cursor.getColumnIndex(COLUMN_PUNTUACION)));
-                    jugador.setFecha(cursor.getString(cursor.getColumnIndex(COLUMN_FECHA)));
+                    Usuario jugador = new Usuario();
+                    jugador.setId(cursor.getString(cursor.getColumnIndex(COLUMN_ID)));
+                    jugador.setMoney(cursor.getInt(cursor.getColumnIndex(COLUMN_MONEDAS)));
                     ranking.add(jugador);
                 } while (cursor.moveToNext());
             }
@@ -83,11 +73,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // LA PUNTUACION MAS ALTA EXCLUYENDO LA PUNTUACION ACTUAL
     public int obtenerPuntuacionMasAlta() {
         SQLiteDatabase db = this.getReadableDatabase();
-        String selectQuery = "SELECT * FROM " + TABLE_JUGADORES + " ORDER BY " + COLUMN_PUNTUACION + " DESC LIMIT 1";
+        String selectQuery = "SELECT * FROM " + TABLE_JUGADORES + " ORDER BY " + COLUMN_MONEDAS + " DESC LIMIT 1";
         Cursor cursor = db.rawQuery(selectQuery, null);
         int puntuacionMasAlta = 0;
         if (cursor.moveToFirst()) {
-            puntuacionMasAlta = cursor.getInt(cursor.getColumnIndex(COLUMN_PUNTUACION));
+            puntuacionMasAlta = cursor.getInt(cursor.getColumnIndex(COLUMN_MONEDAS));
         }
         cursor.close();
         return puntuacionMasAlta;
@@ -96,8 +86,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public int obtenerPuntuacionMasAltaExcluyendo(int puntuacionFinal) {
         SQLiteDatabase db = this.getReadableDatabase();
-        String selectQuery = "SELECT MAX(" + COLUMN_PUNTUACION + ") FROM " + TABLE_JUGADORES +
-                " WHERE " + COLUMN_PUNTUACION + " < " + puntuacionFinal;
+        String selectQuery = "SELECT MAX(" + COLUMN_MONEDAS + ") FROM " + TABLE_JUGADORES +
+                " WHERE " + COLUMN_MONEDAS + " < " + puntuacionFinal;
         Cursor cursor = db.rawQuery(selectQuery, null);
         int puntuacionMasAlta = 0;
         if (cursor.moveToFirst()) {

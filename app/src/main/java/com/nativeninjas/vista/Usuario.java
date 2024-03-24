@@ -1,6 +1,6 @@
-package com.nativeninjas.prod1;
+package com.nativeninjas.vista;
 
-public class dbJugador {
+public class Usuario {
     private int id;
     private String nombre;
     private int puntuacion;

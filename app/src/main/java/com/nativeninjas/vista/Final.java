@@ -1,4 +1,4 @@
-package com.nativeninjas.prod1;
+package com.nativeninjas.vista;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.nativeninjas.modelo.DatabaseHelper;
 
 public class Final extends AppCompatActivity {
 
