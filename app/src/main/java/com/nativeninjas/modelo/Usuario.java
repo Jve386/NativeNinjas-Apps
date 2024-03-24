@@ -1,10 +1,21 @@
+<<<<<<< HEAD
 package com.nativeninjas.modelo;
+=======
+package com.example.piedrapapeltijera.modelo;
+
+>>>>>>> 624b1fe91fddbaf159ccc3246799c4a384cbad6f
 public class Usuario {
     String id;
     int money;
 
 //BUILDER
+<<<<<<< HEAD
     public Usuario() {
+=======
+    public Usuario(String id) {
+        this.id = id;
+        this.money = 0;
+>>>>>>> 624b1fe91fddbaf159ccc3246799c4a384cbad6f
     }
 
     //GETTERS & SETTERS

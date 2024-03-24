@@ -1,7 +1,15 @@
+<<<<<<< HEAD
 package com.nativeninjas.controlador;
 
 import com.nativeninjas.vista.*;
 import com.nativeninjas.modelo.Datos;
+=======
+package com.example.piedrapapeltijera.controlador;
+
+import com.example.piedrapapeltijera.Vistas.Vista;
+import com.example.piedrapapeltijera.Vistas.VistaPrincipal;
+import com.example.piedrapapeltijera.modelo.Datos;
+>>>>>>> 624b1fe91fddbaf159ccc3246799c4a384cbad6f
 
 public class Controlador {
     private Datos datos;
@@ -25,7 +33,11 @@ public class Controlador {
 
     }
     public void addVista(){
+<<<<<<< HEAD
         this.vista = new Splash();
+=======
+        this.vista = new VistaPrincipal();
+>>>>>>> 624b1fe91fddbaf159ccc3246799c4a384cbad6f
 
     }
 
