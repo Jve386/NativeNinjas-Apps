@@ -1,11 +1,13 @@
 package com.nativeninjas.prod1;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.media.MediaPlayer;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.ActionBar;
@@ -25,8 +27,12 @@ public class Partida extends AppCompatActivity {
     private String movimientoComputadora = opciones[random.nextInt(opciones.length)];
     private int contadorMonedas = 0;
     private int intentos = 3;
+    private boolean juegoEnProgreso = false;
+
 
     private DatabaseHelper databaseHelper; // Agregar una instancia de DatabaseHelper
+
+    private MediaPlayer mpGanar, mpPerder, mpEmpate; // Agregar reproductores de audio
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +46,11 @@ public class Partida extends AppCompatActivity {
             // Ocultar el título por defecto
             actionBar.setDisplayShowTitleEnabled(false);
         }
+
+        // Inicializar reproductores de audio
+        mpGanar = MediaPlayer.create(this, R.raw.ganar);
+        mpPerder = MediaPlayer.create(this, R.raw.perder);
+        mpEmpate = MediaPlayer.create(this, R.raw.empate);
 
         btnPiedra = findViewById(R.id.btnPiedra);
         btnPapel = findViewById(R.id.btnPapel);
@@ -91,17 +102,34 @@ public class Partida extends AppCompatActivity {
         databaseHelper = new DatabaseHelper(this);
     }
 
+    // Funcion para reproducir los sonidos.
+    private void reproducirSonido(MediaPlayer mediaPlayer) {
+        if (mediaPlayer != null) {
+            mediaPlayer.start();
+        }
+    }
+
     private void jugar(String movimientoJugador) {
+        // Verificar si el juego está en progreso
+        if (juegoEnProgreso) {
+            return; // Salir si el juego está en progreso
+        }
+
+        // Establecer que el juego está en progreso
+        juegoEnProgreso = true;
+
         // Obtener el movimiento de la computadora
         String movimientoComputadoraTexto = "La computadora eligió: " + movimientoComputadora;
 
         if (movimientoJugador.equals(movimientoComputadora)) {
             txtResultado.setText("¡Empate!\n" + movimientoComputadoraTexto);
+            mpEmpate.start(); // Reproducir el sonido de empate
         } else if ((movimientoJugador.equals("Piedra") && movimientoComputadora.equals("Tijera")) ||
                 (movimientoJugador.equals("Papel") && movimientoComputadora.equals("Piedra")) ||
                 (movimientoJugador.equals("Tijera") && movimientoComputadora.equals("Papel"))) {
             txtResultado.setText("¡Ganaste!\n" + movimientoComputadoraTexto);
             contadorMonedas++;
+            mpGanar.start(); // Reproducir el sonido de ganar
         } else {
             txtResultado.setText("¡Perdiste!\n" + movimientoComputadoraTexto);
             intentos--;
@@ -111,14 +139,24 @@ public class Partida extends AppCompatActivity {
                 return;
             }
             actualizarIntentos();
+            mpPerder.start(); // Reproducir el sonido de perder
         }
 
         // Mostrar el contador de ganadas
         txtContador.setText("Partidas ganadas: " + contadorMonedas);
 
-        // Actualizar el movimiento de la computadora para la siguiente jugada
-        movimientoComputadora = opciones[random.nextInt(opciones.length)];
+        // Postergar el siguiente movimiento durante 2 segundos
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                // Actualizar el movimiento de la computadora para la siguiente jugada
+                movimientoComputadora = opciones[random.nextInt(opciones.length)];
+                // Establecer que el juego ya no está en progreso
+                juegoEnProgreso = false;
+            }
+        }, 2000); // 2000 milisegundos = 2 segundos
     }
+
 
     private void guardarPuntuacionFinal(int puntuacionFinal) {
         // Obtener el nombre del jugador
