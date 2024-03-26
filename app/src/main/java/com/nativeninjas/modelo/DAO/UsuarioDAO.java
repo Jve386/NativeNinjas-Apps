@@ -15,7 +15,7 @@ import io.reactivex.rxjava3.core.Single;
 
 
 public class UsuarioDAO extends SQLiteOpenHelper implements DAO <Usuario, String >  {
-    private static final String TABLE_JUGADORES = "usuarios";
+    private static final String TABLE_JUGADORES = "usuario";
     private static final String COLUMN_ID = "id";
     private static final String COLUMN_MONEDAS = "monedas";
     private static final String CREATE_TABLE_JUGADORES = "CREATE TABLE " + TABLE_JUGADORES + "(" +
