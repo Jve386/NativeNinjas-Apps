@@ -53,9 +53,9 @@ public class Datos {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public Single<ArrayList<List<String>>> mostrarRanking(){
+    public Single<ArrayList<ArrayList<String>>> mostrarRanking() {
         return Single.fromCallable(() -> {
-            ArrayList<List<String>> ranking = new ArrayList<>();
+            ArrayList<ArrayList<String>> ranking = new ArrayList<>();
             List<Partida> listPartida = this.partidaDAO.obtenerRanking();
             String idUsuario;
             String monedas;
@@ -66,7 +66,6 @@ public class Datos {
                 fecha = p.getFecha();
 
                 ranking.add(new ArrayList<>(Arrays.asList(idUsuario,monedas, fecha)));
-
             }
             return ranking;
         });

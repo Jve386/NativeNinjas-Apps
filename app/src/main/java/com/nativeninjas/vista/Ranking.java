@@ -25,6 +25,8 @@ import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
+import com.nativeninjas.prod1.R;
+
 
 public class Ranking extends AppCompatActivity {
 
@@ -65,6 +67,7 @@ public class Ranking extends AppCompatActivity {
             }
         });
     }
+
 
     //**
     private void mostrarRanking(Single<ArrayList<ArrayList<String>>> rankingSingle) {

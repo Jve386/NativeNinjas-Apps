@@ -43,7 +43,7 @@ public class Controlador {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public Object obtenerRanking() {
-        return this.datos.mostrarRanking();
+    public Single<ArrayList<ArrayList<String>>> obtenerRanking() {
+        return datos.mostrarRanking();
     }
 }

@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId = "com.nativeninjas.prod1"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
