@@ -1,6 +1,7 @@
 
 package com.nativeninjas.controlador;
 
+
 import android.content.Context;
 import android.os.Build;
 
@@ -8,6 +9,7 @@ import androidx.annotation.RequiresApi;
 
 import com.nativeninjas.vista.*;
 import com.nativeninjas.modelo.Datos;
+import com.nativeninjas.modelo.Partida;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +45,7 @@ public class Controlador {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public Single<ArrayList<ArrayList<String>>> obtenerRanking() {
+    public Single<List<Partida>> obtenerRanking() {
         return datos.mostrarRanking();
     }
 }

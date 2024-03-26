@@ -53,19 +53,12 @@ public class Datos {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public Single<ArrayList<ArrayList<String>>> mostrarRanking() {
+    public Single<List<Partida>> mostrarRanking() {
         return Single.fromCallable(() -> {
-            ArrayList<ArrayList<String>> ranking = new ArrayList<>();
+            List<Partida> ranking = new ArrayList<>();
             List<Partida> listPartida = this.partidaDAO.obtenerRanking();
-            String idUsuario;
-            String monedas;
-            String fecha;
-            for(Partida p: listPartida){
-                idUsuario = p.getUsuarioId();
-                monedas = Integer.toString(p.getMonedas());
-                fecha = p.getFecha();
-
-                ranking.add(new ArrayList<>(Arrays.asList(idUsuario,monedas, fecha)));
+            for (Partida p : listPartida) {
+                ranking.add(p);
             }
             return ranking;
         });
@@ -75,5 +68,4 @@ public class Datos {
     public int obtenerRecord(String idUsuario) {
         return this.partidaDAO.obtenerMaximaPuntuacion(idUsuario);
     }
-
 }

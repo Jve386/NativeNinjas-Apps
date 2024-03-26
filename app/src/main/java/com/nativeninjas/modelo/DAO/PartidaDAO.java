@@ -130,12 +130,16 @@ public class PartidaDAO extends SQLiteOpenHelper implements DAO<Partida, String>
 
     public List<Partida> obtenerRanking() {
         List<Partida> ranking = new ArrayList<>();
-        String selectQuery = "SELECT "+COLUMN_ID+", "+COLUMN_USUARIO+", "+COLUMN_MONEDAS+", "+COLUMN_FECHA+
-                " FROM "+TABLE_PARTIDA +
-                " JOIN ( SELECT "+COLUMN_USUARIO+", MAX("+COLUMN_MONEDAS+") AS max_monedas " +
-                "       FROM "+TABLE_PARTIDA+" GROUP BY "+COLUMN_USUARIO +
+        String selectQuery = "SELECT " + TABLE_PARTIDA + "." + COLUMN_ID + ", " +
+                TABLE_PARTIDA + "." + COLUMN_USUARIO + " AS partida_usuario_id, " +
+                TABLE_PARTIDA + "." + COLUMN_MONEDAS + ", " +
+                TABLE_PARTIDA + "." + COLUMN_FECHA +
+                " FROM " + TABLE_PARTIDA +
+                " JOIN ( SELECT " + COLUMN_USUARIO + " AS usuario_id, MAX(" + COLUMN_MONEDAS + ") AS max_monedas " +
+                "       FROM " + TABLE_PARTIDA + " GROUP BY " + COLUMN_USUARIO +
                 "       ) AS aux " +
-                "ON "+TABLE_PARTIDA+"."+COLUMN_USUARIO+" = aux."+COLUMN_USUARIO+" AND "+TABLE_PARTIDA+"."+COLUMN_MONEDAS+
+                "ON " + TABLE_PARTIDA + "." + COLUMN_USUARIO + " = aux.usuario_id AND " +
+                TABLE_PARTIDA + "." + COLUMN_MONEDAS +
                 " = aux.max_monedas " +
                 "ORDER BY max_monedas DESC";
         SQLiteDatabase db = this.getWritableDatabase();
@@ -148,7 +152,7 @@ public class PartidaDAO extends SQLiteOpenHelper implements DAO<Partida, String>
         Partida partida;
         while (!res.isAfterLast()) {
             id = res.getInt(res.getColumnIndex(COLUMN_ID));
-            idUsuario = res.getString(res.getColumnIndex(COLUMN_USUARIO));
+            idUsuario = res.getString(res.getColumnIndex("partida_usuario_id")); // Usar el alias de la columna
             monedas = res.getInt(res.getColumnIndex(COLUMN_MONEDAS));
             fecha = res.getString(res.getColumnIndex(COLUMN_FECHA));
             partida = new Partida(monedas, idUsuario);

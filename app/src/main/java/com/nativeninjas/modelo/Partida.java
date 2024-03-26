@@ -18,7 +18,7 @@ public class Partida {
 
     private String usuarioId;
 
-    private final DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("YYYY-MM-DD HH:MM:SS.SSS");
+    private final DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     //BUILDER
     @RequiresApi(api = Build.VERSION_CODES.O)

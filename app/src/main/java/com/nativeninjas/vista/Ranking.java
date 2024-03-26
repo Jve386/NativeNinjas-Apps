@@ -1,5 +1,8 @@
 package com.nativeninjas.vista;
 
+import com.nativeninjas.prod1.R;
+import com.nativeninjas.modelo.Partida;
+
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,13 +22,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.nativeninjas.controlador.Controlador;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
-import com.nativeninjas.prod1.R;
+
 
 
 public class Ranking extends AppCompatActivity {
@@ -70,7 +75,7 @@ public class Ranking extends AppCompatActivity {
 
 
     //**
-    private void mostrarRanking(Single<ArrayList<ArrayList<String>>> rankingSingle) {
+    private void mostrarRanking(Single<List<Partida>> rankingSingle) {
         disposable = rankingSingle
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -79,12 +84,15 @@ public class Ranking extends AppCompatActivity {
     //**
 
     //**
-    private void mostrarListaRanking(ArrayList<ArrayList<String>> ranking) {
-        // Limitar la lista a los 10 primeros jugadores
-        ranking = (ArrayList<ArrayList<String>>) ranking.subList(0, Math.min(ranking.size(), 10));
+    private void mostrarListaRanking(List<Partida> ranking) {
+        // Ordenar la lista de partidas por puntuación de forma descendente
+        Collections.sort(ranking, (p1, p2) -> Integer.compare(p2.getMonedas(), p1.getMonedas()));
+
+        // Limitar la lista a las 10 mejores partidas si es necesario
+        List<Partida> sublist = ranking.subList(0, Math.min(ranking.size(), 10));
 
         // Crear un adaptador personalizado para la lista
-        ArrayAdapter<ArrayList<String>> adapter = new ArrayAdapter<ArrayList<String>>(this, android.R.layout.simple_list_item_2, ranking) {
+        ArrayAdapter<Partida> adapter = new ArrayAdapter<Partida>(this, android.R.layout.simple_list_item_2, sublist) {
             @NonNull
             @Override
             public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -94,16 +102,16 @@ public class Ranking extends AppCompatActivity {
                     view = inflater.inflate(android.R.layout.simple_list_item_2, parent, false);
                 }
 
-                // Obtener el jugador actual
-                ArrayList<String> info = getItem(position);
+                // Obtener la partida actual
+                Partida partida = getItem(position);
 
                 // Configurar el texto para el nombre y la puntuación
                 TextView textViewNombre = view.findViewById(android.R.id.text1);
-                textViewNombre.setText((position + 1) + ". " + info.get(0) + " - Puntuación: " + info.get(1));
+                textViewNombre.setText((position + 1) + ". " + partida.getUsuarioId() + " - Puntuación: " + partida.getMonedas());
 
                 // Configurar la fecha debajo del texto principal con un tamaño de letra más pequeño
                 TextView textViewFecha = view.findViewById(android.R.id.text2);
-                textViewFecha.setText("Fecha: " + info.get(2));
+                textViewFecha.setText("Fecha: " + partida.getFecha());
                 textViewFecha.setTextSize(12);
 
                 return view;
@@ -113,6 +121,7 @@ public class Ranking extends AppCompatActivity {
         // Establecer el adaptador en el ListView
         listViewRanking.setAdapter(adapter);
     }
+
 
     @Override
     protected void onDestroy() {

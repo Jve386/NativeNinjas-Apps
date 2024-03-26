@@ -147,7 +147,7 @@ public class Partida extends AppCompatActivity {
          **/
 
         Intent intent = new Intent(this, Final.class);
-        intent.putExtra("nombreJugador", nombreJugador);
+        intent.putExtra("idUsuario", nombreJugador);
         intent.putExtra("puntuacionFinal", puntuacionFinal);
         startActivity(intent);
         finish(); // Finalizar la actividad actual
