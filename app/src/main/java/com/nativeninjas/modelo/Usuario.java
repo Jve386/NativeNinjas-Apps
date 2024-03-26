@@ -3,7 +3,6 @@ package com.nativeninjas.modelo;
 
 public class Usuario {
     String id;
-    int money;
 
 //BUILDER
 
@@ -20,15 +19,7 @@ public class Usuario {
         this.id = id;
     }
 
-    public int getMoney() {
-        return this.money;
-    }
 
-    public void setMoney(int money) {
-        if(this.money < money){
-            this.money = money;
-        }
-    }
 
     //METHODS
 
@@ -36,7 +27,6 @@ public class Usuario {
     public String toString() {
         return "Usuario{" +
                 "id='" + id + '\'' +
-                ", money=" + money +
                 '}';
     }
 

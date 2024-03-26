@@ -1,20 +1,25 @@
 package com.nativeninjas.vista;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.nativeninjas.modelo.DatabaseHelper;
+import com.nativeninjas.controlador.Controlador;
 
 public class Final extends AppCompatActivity {
 
     private TextView txtPuntuacionFinal, txtRecord, txtPuntuacionMasAlta;
     private Button btnMain, btnSalir, btnReintentar;
+    private Controlador controlador;
+    private String idUsuario;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,8 +38,10 @@ public class Final extends AppCompatActivity {
         txtPuntuacionFinal.setText("Puntuación Final: " + puntuacionFinal);
 
         // Obtener la puntuación más alta de la base de datos
-        DatabaseHelper dbHelper = new DatabaseHelper(this);
-        int puntuacionMasAlta = dbHelper.obtenerPuntuacionMasAlta();
+        controlador = new Controlador();
+        controlador.addDatos(this);
+        idUsuario = getIntent().getStringExtra("nombreJugador");
+        int puntuacionMasAlta = controlador.obtenerRecord(idUsuario);
         txtPuntuacionMasAlta.setText("Puntuación más alta: " + puntuacionMasAlta);
 
         // Comparar la puntuación final con la puntuación más alta

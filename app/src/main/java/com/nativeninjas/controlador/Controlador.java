@@ -1,6 +1,11 @@
 
 package com.nativeninjas.controlador;
 
+import android.content.Context;
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
 import com.nativeninjas.vista.*;
 import com.nativeninjas.modelo.Datos;
 
@@ -12,29 +17,33 @@ import io.reactivex.rxjava3.core.Single;
 
 public class Controlador {
     private Datos datos;
-    private Vista vista;
-    private String idJugadorActual;
 
     //METHODS
+
     public void registrarUsuario(String id){
         this.datos.registrarUsuario(id);
     }
-    public String getRecordActual(){
-       return this.datos.getRecordActual(idJugadorActual);
+
+
+
+    public void addDatos(Context context){
+        this.datos = new Datos(context);
 
     }
-    public Single<ArrayList<List<String>>> mostrarRanking(){
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void guardarPartida(String nombreJugador, int puntuacionFinal) {
+        this.datos.addPartida(nombreJugador,puntuacionFinal);
+
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public int obtenerRecord(String idUsuario) {
+        return  this.datos.obtenerRecord(idUsuario);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public Object obtenerRanking() {
         return this.datos.mostrarRanking();
     }
-
-    public void addDatos(){
-        this.datos = new Datos();
-
-    }
-    public void addVista(){
-
-        this.vista = new Splash();
-
-    }
-
 }

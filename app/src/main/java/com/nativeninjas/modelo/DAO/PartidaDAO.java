@@ -1,6 +1,7 @@
 package com.nativeninjas.modelo.DAO;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
@@ -25,7 +26,7 @@ public class PartidaDAO extends SQLiteOpenHelper implements DAO<Partida, String>
     private static final String COLUMN_FECHA = "fecha";
     private static final String COLUMN_MONEDAS = "monedas";
     private static final String CREATE_TABLE_PARTIDAS = "CREATE TABLE " + TABLE_PARTIDA + "(" +
-            COLUMN_ID + " TEXT PRIMARY KEY AUTOINCREMENT," +
+            COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             COLUMN_USUARIO + " TEXT," +
             COLUMN_FECHA + " TEXT," +
             COLUMN_MONEDAS + " INTEGER," +
@@ -33,8 +34,8 @@ public class PartidaDAO extends SQLiteOpenHelper implements DAO<Partida, String>
             ")";
 
 
-    public PartidaDAO() {
-        super(null, DATABASE_NAME, null, DATABASE_VERSION);
+    public PartidaDAO(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
@@ -64,7 +65,7 @@ public class PartidaDAO extends SQLiteOpenHelper implements DAO<Partida, String>
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_MONEDAS, partida.getMonedas());
-        db.update(TABLE_PARTIDA, values, COLUMN_ID + "=?", new String[]{partida.getId()});
+        db.update(TABLE_PARTIDA, values, COLUMN_ID + "=?", new String[]{Integer.toString(partida.getId())});
         db.close();
 
 
@@ -80,60 +81,101 @@ public class PartidaDAO extends SQLiteOpenHelper implements DAO<Partida, String>
     }
 
     @Override
-    public List<Usuario> listarTodos() throws SQLiteException {
+    public List<Partida> listarTodos() throws SQLiteException {
         SQLiteDatabase db = this.getReadableDatabase();
-        ArrayList<Usuario> array_list = new ArrayList<Usuario>();
-        Cursor res = db.rawQuery("select * from " + TABLE_JUGADORES, null);
+        ArrayList<Partida> array_list = new ArrayList<Partida>();
+        Cursor res = db.rawQuery("select * from " + TABLE_PARTIDA, null);
         res.moveToFirst();
-        String id;
+        int id;
+        String idUsuario;
         int monedas;
-        Usuario usuario;
+        String fecha;
+        Partida partida;
         while (!res.isAfterLast()) {
-            id = res.getString(res.getColumnIndex(COLUMN_ID));
+            id = res.getInt(res.getColumnIndex(COLUMN_ID));
+            idUsuario = res.getString(res.getColumnIndex(COLUMN_USUARIO));
             monedas = res.getInt(res.getColumnIndex(COLUMN_MONEDAS));
-            usuario = new Usuario();
-            usuario.setId(id);
-            usuario.setMoney(monedas);
-            array_list.add(usuario);
+            fecha = res.getString(res.getColumnIndex(COLUMN_FECHA));
+            partida = new Partida(monedas, idUsuario);
+            partida.setId(id);
+            partida.setFecha(fecha);
+            array_list.add(partida);
             res.moveToNext();
         }
         return array_list;
     }
 
 
-    @Override
-    public Usuario listarUno(String id) throws SQLiteException {
+
+    public Partida listarUno(int id) throws SQLiteException {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select * from " + TABLE_JUGADORES + " WHERE " + COLUMN_ID + "=?", new String[]{id});
+        Cursor res = db.rawQuery("select * from " + TABLE_PARTIDA + " WHERE " + COLUMN_ID + "=?", new String[]{Integer.toString(id)});
         res.moveToFirst();
+        String idUsuario;
         int monedas;
-        Usuario usuario = null;
+        String fecha;
+        Partida partida = null;
         while (!res.isAfterLast()) {
+            id = res.getInt(res.getColumnIndex(COLUMN_ID));
+            idUsuario = res.getString(res.getColumnIndex(COLUMN_USUARIO));
             monedas = res.getInt(res.getColumnIndex(COLUMN_MONEDAS));
-            usuario = new Usuario();
-            usuario.setId(id);
-            usuario.setMoney(monedas);
+            fecha = res.getString(res.getColumnIndex(COLUMN_FECHA));
+            partida = new Partida(monedas, idUsuario);
+            partida.setId(id);
+            partida.setFecha(fecha);
             res.moveToNext();
         }
-        return usuario;
+        return partida;
     }
 
-    public List<Usuario> obtenerRanking() {
-        List<Usuario> ranking = new ArrayList<>();
-        String selectQuery = "SELECT * FROM " + TABLE_JUGADORES + " ORDER BY " + COLUMN_MONEDAS + " DESC";
+    public List<Partida> obtenerRanking() {
+        List<Partida> ranking = new ArrayList<>();
+        String selectQuery = "SELECT "+COLUMN_ID+", "+COLUMN_USUARIO+", "+COLUMN_MONEDAS+", "+COLUMN_FECHA+
+                " FROM "+TABLE_PARTIDA +
+                " JOIN ( SELECT "+COLUMN_USUARIO+", MAX("+COLUMN_MONEDAS+") AS max_monedas " +
+                "       FROM "+TABLE_PARTIDA+" GROUP BY "+COLUMN_USUARIO +
+                "       ) AS aux " +
+                "ON "+TABLE_PARTIDA+"."+COLUMN_USUARIO+" = aux."+COLUMN_USUARIO+" AND "+TABLE_PARTIDA+"."+COLUMN_MONEDAS+
+                " = aux.max_monedas " +
+                "ORDER BY max_monedas DESC";
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-        if (cursor.moveToFirst()) {
-            Usuario jugador;
-            do {
-                jugador = new Usuario();
-                jugador.setId(cursor.getString(cursor.getColumnIndex(COLUMN_ID)));
-                jugador.setMoney(cursor.getInt(cursor.getColumnIndex(COLUMN_MONEDAS)));
-                ranking.add(jugador);
-            } while (cursor.moveToNext());
+        Cursor res = db.rawQuery(selectQuery, null);
+        res.moveToFirst();
+        int id;
+        String idUsuario;
+        int monedas;
+        String fecha;
+        Partida partida;
+        while (!res.isAfterLast()) {
+            id = res.getInt(res.getColumnIndex(COLUMN_ID));
+            idUsuario = res.getString(res.getColumnIndex(COLUMN_USUARIO));
+            monedas = res.getInt(res.getColumnIndex(COLUMN_MONEDAS));
+            fecha = res.getString(res.getColumnIndex(COLUMN_FECHA));
+            partida = new Partida(monedas, idUsuario);
+            partida.setId(id);
+            partida.setFecha(fecha);
+            ranking.add(partida);
+            res.moveToNext();
         }
-        cursor.close();
+        res.close();
         db.close();
         return ranking;
     }
+    public int obtenerMaximaPuntuacion(String idUsuario) {
+        String selectQuery = "SELECT MAX("+COLUMN_MONEDAS+") AS "+COLUMN_MONEDAS+
+                " FROM "+TABLE_PARTIDA +
+                " WHERE "+ COLUMN_USUARIO +" = "+idUsuario+
+                " GROUP BY "+ COLUMN_MONEDAS +" ORDER BY " + COLUMN_MONEDAS +" DESC";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery(selectQuery, null);
+        res.moveToFirst();
+        int monedas = -1;
+        if(!res.isAfterLast()) {
+            monedas = res.getInt(res.getColumnIndex(COLUMN_MONEDAS));
+        }
+        res.close();
+        db.close();
+        return monedas;
+    }
+
 }

@@ -1,5 +1,10 @@
 
 package com.nativeninjas.modelo;
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+import android.content.Context;
+
 import com.nativeninjas.modelo.DAO.UsuarioDAO;
 import com.nativeninjas.modelo.DAO.PartidaDAO;
 import com.nativeninjas.modelo.DAO.DAOfactory;
@@ -19,9 +24,10 @@ public class Datos {
     //BUILDER
 
 
-    public Datos() {
-        this.usuarioDAO = this.daoFactory.getUsarioDAO();
-        this.partidaDAO = this.daoFactory.getPartidaDAO();
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public Datos(Context context) {
+        this.usuarioDAO = this.daoFactory.getUsarioDAO(context);
+        this.partidaDAO = this.daoFactory.getPartidaDAO(context);
 
     }
 
@@ -39,46 +45,36 @@ public class Datos {
         usuario = this.usuarioDAO.listarUno(id);
         return usuario.toString();
     }
-    /**
-    public String mostrarPartida(String id){
-        return this.partidas.getPartida(id).toString();
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void addPartida(String usuarioId, int monedas){
+        Partida partida = new Partida(monedas, usuarioId);
+         this.partidaDAO.insertar(partida);
     }
 
-    public void addPartida(String id, int monedas){
-         this.partidas.addPartida(id, monedas);
-    }
-     **/
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public Single<ArrayList<List<String>>> mostrarRanking(){
         return Single.fromCallable(() -> {
             ArrayList<List<String>> ranking = new ArrayList<>();
-            List<Usuario> listUsuarios = this.usuarioDAO.obtenerRanking();
-            String id;
+            List<Partida> listPartida = this.partidaDAO.obtenerRanking();
+            String idUsuario;
             String monedas;
+            String fecha;
+            for(Partida p: listPartida){
+                idUsuario = p.getUsuarioId();
+                monedas = Integer.toString(p.getMonedas());
+                fecha = p.getFecha();
 
-            for(Usuario u: listUsuarios){
-                id = u.getId();
-                monedas = Integer.toString(u.getMoney());
-
-                ranking.add(new ArrayList<>(Arrays.asList(id,monedas)));
+                ranking.add(new ArrayList<>(Arrays.asList(idUsuario,monedas, fecha)));
 
             }
             return ranking;
         });
     }
-    /**
 
-    public void updateMonedas(String id, int monedas){
-        this.usuarios.updateMonedas(id, monedas);
-    }
-    public String mostrarHistorico(){
-        return this.partidas.toString();
-    }
-    public String mostrarUsuarios(){
-        return this.usuarios.toString();
-    }
-    public String getRecordActual(String id){
-        return this.usuarios.getRecordActual(id);
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public int obtenerRecord(String idUsuario) {
+        return this.partidaDAO.obtenerMaximaPuntuacion(idUsuario);
     }
 
-     **/
 }

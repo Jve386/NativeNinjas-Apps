@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter;
 public class Partida {
 
     private LocalDateTime fecha;
-    private String id;
+    private int id;
     //private DateTime fecha;// (BUSCAR FECHAS EN ANDROID)
     private int monedas;
 
@@ -29,11 +29,11 @@ public class Partida {
     }
 
     //GETTERS & SETTERS
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

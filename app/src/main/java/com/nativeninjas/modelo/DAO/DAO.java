@@ -47,14 +47,6 @@ public interface DAO <T, K> {
      */
     List<T> listarTodos() throws SQLiteException;
 
-    /**
-     * Obtiene un único objeto de la capa de persistencia basado en su clave.
-     *
-     * @param k Clave del objeto a obtener
-     * @return Objeto obtenido
-     * @throws SQLiteException si ocurre un error de SQL
-     */
-    T listarUno(K k) throws SQLiteException;
 
 
 }

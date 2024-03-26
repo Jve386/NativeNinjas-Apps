@@ -1,6 +1,7 @@
 package com.nativeninjas.vista;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,11 +13,12 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.nativeninjas.modelo.DatabaseHelper;
+import com.nativeninjas.controlador.Controlador;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Single;
@@ -31,6 +33,9 @@ public class Ranking extends AppCompatActivity {
     private Button btnVolver;
     private Disposable disposable; // Variable para almacenar la suscripción
 
+    private Controlador controlador;
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +47,9 @@ public class Ranking extends AppCompatActivity {
         // Obtener el ranking de la base de datos usando RxJava
 
         //**
-        disposable = Single.fromCallable(() -> new DatabaseHelper(this).obtenerRanking())
+        controlador = new Controlador();
+        controlador.addDatos(this);
+        disposable = Single.fromCallable(() -> controlador.obtenerRanking())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::mostrarRanking, Throwable::printStackTrace);
@@ -60,7 +67,7 @@ public class Ranking extends AppCompatActivity {
     }
 
     //**
-    private void mostrarRanking(Single<List<Usuario>> rankingSingle) {
+    private void mostrarRanking(Single<ArrayList<ArrayList<String>>> rankingSingle) {
         disposable = rankingSingle
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -69,12 +76,12 @@ public class Ranking extends AppCompatActivity {
     //**
 
     //**
-    private void mostrarListaRanking(List<Usuario> ranking) {
+    private void mostrarListaRanking(ArrayList<ArrayList<String>> ranking) {
         // Limitar la lista a los 10 primeros jugadores
-        ranking = ranking.subList(0, Math.min(ranking.size(), 10));
+        ranking = (ArrayList<ArrayList<String>>) ranking.subList(0, Math.min(ranking.size(), 10));
 
         // Crear un adaptador personalizado para la lista
-        ArrayAdapter<Usuario> adapter = new ArrayAdapter<Usuario>(this, android.R.layout.simple_list_item_2, ranking) {
+        ArrayAdapter<ArrayList<String>> adapter = new ArrayAdapter<ArrayList<String>>(this, android.R.layout.simple_list_item_2, ranking) {
             @NonNull
             @Override
             public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -85,15 +92,15 @@ public class Ranking extends AppCompatActivity {
                 }
 
                 // Obtener el jugador actual
-                Usuario jugador = getItem(position);
+                ArrayList<String> info = getItem(position);
 
                 // Configurar el texto para el nombre y la puntuación
                 TextView textViewNombre = view.findViewById(android.R.id.text1);
-                textViewNombre.setText((position + 1) + ". " + jugador.getNombre() + " - Puntuación: " + jugador.getPuntuacion());
+                textViewNombre.setText((position + 1) + ". " + info.get(0) + " - Puntuación: " + info.get(1));
 
                 // Configurar la fecha debajo del texto principal con un tamaño de letra más pequeño
                 TextView textViewFecha = view.findViewById(android.R.id.text2);
-                textViewFecha.setText("Fecha: " + jugador.getFecha());
+                textViewFecha.setText("Fecha: " + info.get(2));
                 textViewFecha.setTextSize(12);
 
                 return view;
