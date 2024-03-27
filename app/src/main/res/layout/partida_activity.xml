@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/teal_200"
     tools:context=".Partida">
 
     <FrameLayout
@@ -29,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:contentDescription="@null"
-            android:src="@drawable/ic_piedra" /> <!-- Imagen -->
+            android:src="@drawable/ic_piedra2" /> <!-- Imagen -->
 
     </FrameLayout>
 
@@ -56,7 +57,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:contentDescription="@null"
-            android:src="@drawable/ic_papel" />
+            android:src="@drawable/ic_papiro_negro" />
 
     </FrameLayout>
 
@@ -82,7 +83,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:contentDescription="@null"
-            android:src="@drawable/ic_tijera" />
+            android:src="@drawable/ic_tijera2" />
 
     </FrameLayout>
 
@@ -131,7 +132,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtResultado"/>
+        app:layout_constraintTop_toBottomOf="@+id/txtResultado" />
 
     <TextView
         android:id="@+id/txtRival"
@@ -147,13 +148,17 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
-        android:id="@+id/imgAnonimo"
-        android:layout_centerVertical="true"
-        android:layout_alignParentTop="true"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:contentDescription="@null"
-        android:src="@drawable/ic_anonimo" />
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
+        android:layout_height="106dp"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="150dp"
+        app:layout_constraintDimensionRatio="w,1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_anonymous" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

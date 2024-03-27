@@ -36,15 +36,16 @@ public class Final extends AppCompatActivity {
         txtPuntuacionMasAlta.setText("Puntuación más alta: " + puntuacionMasAlta);
 
         // Comparar la puntuación final con la puntuación más alta
-        if (puntuacionFinal > puntuacionMasAlta) {
+        if (puntuacionFinal > puntuacionMasAlta)
+        {
             // Si la puntuación final es mayor, mostrar "Record superado"
             txtRecord.setText("Record superado");
-        } else {
-            // Si la puntuación final no es mayor, mostrar "Record no superado"
+        }   // Si la puntuación final igual, mostrar "Record igualado"
+
+          // Si la puntuación final no es mayor, mostrar "Record no superado"
+            else {
             txtRecord.setText("Record no superado");
         }
-
-
 
         // Botón "Volver a Jugar"
         btnReintentar.setOnClickListener(new View.OnClickListener() {

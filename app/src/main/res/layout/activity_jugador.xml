@@ -5,13 +5,18 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/teal_700"
+    android:backgroundTint="@color/teal_700"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context=".Jugador">
+
     <LinearLayout
         android:id="@+id/linearlayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/teal_700"
+        android:backgroundTint="@color/teal_200"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -26,14 +31,14 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="Piedra, papel o tijera"
-                android:textColor="#ff0000"
+                android:textColor="@color/purple_700"
                 android:textSize="30dp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:src="@drawable/piedra_papel_o_tijera_reglas">
+                android:src="@drawable/ic_rock_paper_scissors_hand_icons">
 
             </ImageView>
 
@@ -44,15 +49,11 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="20dp"
                 android:orientation="horizontal">
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="10dp"
-                    android:src="@drawable/tijera">
-                </ImageView>
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/editTextNombre"
                         android:layout_width="match_parent"
@@ -66,30 +67,30 @@
                     </com.google.android.material.textfield.TextInputEditText>
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
+
             <Button
                 android:id="@+id/btnConfirmar"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
                 android:background="#0000ff"
+                android:onClick="onClick"
                 android:text="JUGAR"
                 android:textColor="#ffffff"
-                android:layout_marginTop="30dp"
                 android:textSize="30dp"
-                android:textStyle="bold"
-                android:onClick="onClick">
-            </Button>
+                android:textStyle="bold"></Button>
+
             <Button
                 android:id="@+id/btnSalir"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
                 android:background="#0000ff"
+                android:onClick="onClick"
                 android:text="SALIR"
                 android:textColor="#ffffff"
-                android:layout_marginTop="30dp"
                 android:textSize="30dp"
-                android:textStyle="bold"
-                android:onClick="onClick">
-            </Button>
+                android:textStyle="bold"></Button>
         </LinearLayout>
 
     </LinearLayout>

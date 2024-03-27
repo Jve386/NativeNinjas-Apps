@@ -5,12 +5,15 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:backgroundTint="@color/teal_700"
     android:fitsSystemWindows="true"
+    android:orientation="vertical"
     tools:context=".Splash">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/teal_700"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -24,18 +27,18 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="APP Producto 1"
+            android:textColor="#000"
             android:textSize="34dp"
-            android:textStyle="bold"
-            android:textColor="#000">
-        </TextView>
+            android:textStyle="bold"></TextView>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:layout_marginTop="200dp"
+            android:backgroundTint="@color/white"
+            android:gravity="center"
             android:text="Desarrollado por NativeNinjas"
-            android:textSize="24dp">
-        </TextView>
+            android:textSize="24dp"></TextView>
     </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
