@@ -1,4 +1,4 @@
-package com.nativeninjas.prod1;
+package com.nativeninjas.vista;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -6,11 +6,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.WindowManager;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
+import com.nativeninjas.prod1.R;
 
 public class Splash extends AppCompatActivity {
     //variable para la duración del splash
