@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="@color/teal_700"
     android:visibility="visible"
     tools:context=".Final">
@@ -12,73 +11,59 @@
         android:id="@+id/txtPuntuacionMasAlta"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        android:text="sample text"
         android:textSize="24sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:text="sample text"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"/>
 
     <TextView
         android:id="@+id/txtPuntuacionFinal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:textStyle="bold"
         android:layout_below="@id/txtPuntuacionMasAlta"
-        android:layout_centerInParent="true"
         android:layout_marginTop="16dp"
         android:text="sample text"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+        android:layout_centerInParent="true"/>
 
     <TextView
         android:id="@+id/txtRecord"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:text="sample text"
         android:layout_below="@id/txtPuntuacionFinal"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:text="sample text"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        android:layout_marginTop="16dp" />
 
     <Button
         android:id="@+id/btnReintentar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Reintentar"
         android:layout_below="@id/txtRecord"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:text="Reintentar" />
+        android:layout_marginTop="16dp" />
 
     <Button
         android:id="@+id/btnMain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Volver al Menú"
         android:layout_below="@id/btnReintentar"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:text="Volver al Menú" />
+        android:layout_marginTop="16dp" />
 
     <Button
         android:id="@+id/btnSalir"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Salir"
         android:layout_below="@id/btnMain"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:text="Salir" />
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleY="0.7"
-        android:translationY="160dp"
-        app:srcCompat="@drawable/ic_enfado" />
-
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="131dp"
-        android:layout_height="126dp"
-        app:srcCompat="@drawable/ic_contento" />
+        android:layout_marginTop="16dp" />
 
 </RelativeLayout>

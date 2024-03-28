@@ -8,6 +8,8 @@ import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+// Esto va dentro de Final.class. No necesita otro Activity.
+// Los XML pasa igual. Todo va dentro del layout activity_final.xml y se juega con booleans: visibilidad.
 public class win extends AppCompatActivity {
     //variable para la duración del lose
     private final int DURATION_WIN = 3000; //3 segundos
