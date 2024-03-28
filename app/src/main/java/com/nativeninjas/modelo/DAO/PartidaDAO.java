@@ -130,18 +130,22 @@ public class PartidaDAO extends SQLiteOpenHelper implements DAO<Partida, String>
 
     public List<Partida> obtenerRanking() {
         List<Partida> ranking = new ArrayList<>();
-        String selectQuery = "SELECT " + TABLE_PARTIDA + "." + COLUMN_ID + ", " +
-                TABLE_PARTIDA + "." + COLUMN_USUARIO + " AS partida_usuario_id, " +
-                TABLE_PARTIDA + "." + COLUMN_MONEDAS + ", " +
-                TABLE_PARTIDA + "." + COLUMN_FECHA +
-                " FROM " + TABLE_PARTIDA +
-                " JOIN ( SELECT " + COLUMN_USUARIO + " AS usuario_id, MAX(" + COLUMN_MONEDAS + ") AS max_monedas " +
-                "       FROM " + TABLE_PARTIDA + " GROUP BY " + COLUMN_USUARIO +
+        String selectQuery = "SELECT "+COLUMN_ID+", "+COLUMN_USUARIO+", "+COLUMN_MONEDAS+", "+COLUMN_FECHA+
+                " FROM "+TABLE_PARTIDA +
+                " JOIN ( SELECT "+COLUMN_USUARIO+" AS aux_usuario, MAX("+COLUMN_MONEDAS+") AS max_monedas " +
+                "       FROM "+TABLE_PARTIDA+" GROUP BY "+COLUMN_USUARIO +
                 "       ) AS aux " +
-                "ON " + TABLE_PARTIDA + "." + COLUMN_USUARIO + " = aux.usuario_id AND " +
-                TABLE_PARTIDA + "." + COLUMN_MONEDAS +
+                " ON "+COLUMN_USUARIO+" = aux.aux_usuario AND "+COLUMN_MONEDAS+
                 " = aux.max_monedas " +
-                "ORDER BY max_monedas DESC";
+                " ORDER BY "+COLUMN_MONEDAS+" DESC, "+ COLUMN_FECHA + " ASC";
+        /**
+        String selectQuery = "SELECT * FROM ( SELECT " + COLUMN_ID + ", " +
+                COLUMN_USUARIO + ", "+  COLUMN_MONEDAS + ", " + COLUMN_FECHA +
+                " , ROW_NUMBER () OVER (PARTITION BY "+ COLUMN_USUARIO +" ORDER BY "+ COLUMN_MONEDAS + " DESC) RowNum" +
+                " FROM " + TABLE_PARTIDA +
+                " ) t"+
+                " WHERE RowNum=1 ORDER BY "+COLUMN_MONEDAS+" DESC";
+         **/
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = db.rawQuery(selectQuery, null);
         res.moveToFirst();
@@ -150,31 +154,33 @@ public class PartidaDAO extends SQLiteOpenHelper implements DAO<Partida, String>
         int monedas;
         String fecha;
         Partida partida;
-        while (!res.isAfterLast()) {
-            id = res.getInt(res.getColumnIndex(COLUMN_ID));
-            idUsuario = res.getString(res.getColumnIndex("partida_usuario_id")); // Usar el alias de la columna
-            monedas = res.getInt(res.getColumnIndex(COLUMN_MONEDAS));
-            fecha = res.getString(res.getColumnIndex(COLUMN_FECHA));
-            partida = new Partida(monedas, idUsuario);
-            partida.setId(id);
-            partida.setFecha(fecha);
-            ranking.add(partida);
-            res.moveToNext();
+        if(res.moveToFirst()) {
+            do{
+                id = res.getInt(res.getColumnIndex(COLUMN_ID));
+                idUsuario = res.getString(res.getColumnIndex(COLUMN_USUARIO));
+                monedas = res.getInt(res.getColumnIndex(COLUMN_MONEDAS));
+                fecha = res.getString(res.getColumnIndex(COLUMN_FECHA));
+                partida = new Partida(monedas, idUsuario);
+                partida.setId(id);
+                partida.setFecha(fecha);
+                ranking.add(partida);
+                res.moveToNext();
+            }while (!res.isAfterLast());
         }
         res.close();
         db.close();
         return ranking;
     }
     public int obtenerMaximaPuntuacion(String idUsuario) {
-        String selectQuery = "SELECT MAX("+COLUMN_MONEDAS+") AS "+COLUMN_MONEDAS+
+        String selectQuery = "SELECT "+COLUMN_MONEDAS+
                 " FROM "+TABLE_PARTIDA +
-                " WHERE "+ COLUMN_USUARIO +" = "+idUsuario+
-                " GROUP BY "+ COLUMN_MONEDAS +" ORDER BY " + COLUMN_MONEDAS +" DESC";
+                " WHERE "+ COLUMN_USUARIO +"='"+idUsuario+"'"+
+                " ORDER BY " + COLUMN_MONEDAS +" DESC"+
+                " LIMIT 1";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = db.rawQuery(selectQuery, null);
-        res.moveToFirst();
-        int monedas = -1;
-        if(!res.isAfterLast()) {
+        int monedas = 0;
+        if(res.moveToFirst()) {
             monedas = res.getInt(res.getColumnIndex(COLUMN_MONEDAS));
         }
         res.close();

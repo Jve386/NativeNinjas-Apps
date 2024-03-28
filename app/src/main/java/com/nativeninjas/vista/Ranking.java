@@ -86,7 +86,7 @@ public class Ranking extends AppCompatActivity {
     //**
     private void mostrarListaRanking(List<Partida> ranking) {
         // Ordenar la lista de partidas por puntuación de forma descendente
-        Collections.sort(ranking, (p1, p2) -> Integer.compare(p2.getMonedas(), p1.getMonedas()));
+        //Collections.sort(ranking, (p1, p2) -> Integer.compare(p2.getMonedas(), p1.getMonedas()));
 
         // Limitar la lista a las 10 mejores partidas si es necesario
         List<Partida> sublist = ranking.subList(0, Math.min(ranking.size(), 10));
