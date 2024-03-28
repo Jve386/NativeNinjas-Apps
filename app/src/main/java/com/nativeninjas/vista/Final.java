@@ -11,6 +11,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.nativeninjas.controlador.Controlador;
+import com.nativeninjas.prod1.R;
 
 public class Final extends AppCompatActivity {
 
@@ -41,6 +42,7 @@ public class Final extends AppCompatActivity {
         controlador = new Controlador();
         controlador.addDatos(this);
         idUsuario = getIntent().getStringExtra("nombreJugador");
+        System.out.println(idUsuario);
         int puntuacionMasAlta = controlador.obtenerRecord(idUsuario);
         txtPuntuacionMasAlta.setText("Puntuación más alta: " + puntuacionMasAlta);
 

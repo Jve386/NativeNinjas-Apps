@@ -8,6 +8,8 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AlertDialog;
 
+import com.nativeninjas.prod1.R;
+
 public class MainActivity extends AppCompatActivity {
     private Button btnJugar, btnSalir, btnRanking;
 

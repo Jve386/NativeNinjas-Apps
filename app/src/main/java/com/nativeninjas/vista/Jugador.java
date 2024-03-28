@@ -10,6 +10,8 @@ import android.widget.EditText;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.nativeninjas.prod1.R;
+
 public class Jugador extends AppCompatActivity {
 
     private EditText editTextNombre;

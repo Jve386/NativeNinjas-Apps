@@ -8,6 +8,8 @@ import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.nativeninjas.prod1.R;
+
 public class Splash extends AppCompatActivity {
     //variable para la duración del splash
     private final int DURATION_SPLASH = 3000; //3 segundos
