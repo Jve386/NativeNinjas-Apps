@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/teal_200"
     tools:context=".Partida">
+
 
     <FrameLayout
         android:id="@+id/btnPiedraContainer"
@@ -131,7 +133,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtResultado"/>
+        app:layout_constraintTop_toBottomOf="@+id/txtResultado" />
 
     <TextView
         android:id="@+id/txtRival"
@@ -148,12 +150,13 @@
 
     <ImageView
         android:id="@+id/imgAnonimo"
-        android:layout_centerVertical="true"
-        android:layout_alignParentTop="true"
         android:layout_width="match_parent"
         android:layout_height="150dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
         android:contentDescription="@null"
-        android:src="@drawable/ic_anonimo" />
+        android:src="@drawable/ic_anonimo"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
