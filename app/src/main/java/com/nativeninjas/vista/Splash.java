@@ -1,4 +1,4 @@
-package com.nativeninjas.prod1;
+package com.nativeninjas.vista;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -6,11 +6,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.WindowManager;
 
-import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
+import com.nativeninjas.prod1.R;
 
 public class Splash extends AppCompatActivity {
     //variable para la duración del splash
@@ -20,6 +19,20 @@ public class Splash extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //EdgeToEdge.enable(this);
         setContentView(R.layout.activity_splash);
+
+        // Obtener el ActionBar
+        ActionBar actionBar = getSupportActionBar();
+
+        if (actionBar != null) {
+            // Ocultar el título por defecto
+            actionBar.setDisplayShowTitleEnabled(false);
+        }
+
+        // Nombre del equipo en el ActionBar
+        if (actionBar != null) {
+            actionBar.setDisplayShowTitleEnabled(true);
+            actionBar.setTitle("NativeNinjas");
+        }
         /*ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);

@@ -5,10 +5,13 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/teal_700"
+    android:backgroundTint="@color/teal_700"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context=".Jugador">
-    <LinearLayout
+
+<LinearLayout
         android:id="@+id/linearlayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -26,14 +29,14 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="Piedra, papel o tijera"
-                android:textColor="#ff0000"
+                android:textColor="@color/purple_700"
                 android:textSize="30dp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:src="@drawable/piedra_papel_o_tijera_reglas">
+                android:src="@drawable/ic_manos">
 
             </ImageView>
 
@@ -44,12 +47,7 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginRight="20dp"
                 android:orientation="horizontal">
-                <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="10dp"
-                    android:src="@drawable/tijera">
-                </ImageView>
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">

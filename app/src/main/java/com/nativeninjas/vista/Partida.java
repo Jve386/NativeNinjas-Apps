@@ -1,26 +1,39 @@
-package com.nativeninjas.prod1;
+package com.nativeninjas.vista;
+
+
+import java.util.Date;
+import java.util.Random;
+
+
 import android.content.Intent;
+import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.service.controls.Control;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.media.MediaPlayer;
 
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.ActionBar;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-import java.util.Random;
+import com.nativeninjas.controlador.Controlador;
+
+import com.nativeninjas.prod1.R;
+
+
+@RequiresApi(api = Build.VERSION_CODES.O)
 
 public class Partida extends AppCompatActivity {
     private Button btnPiedra, btnPapel, btnTijera;
     private String nombreJugador;
-    private String fechaActual = obtenerFechaActual();
     private TextView txtResultado, txtContador, txtIntentos;
     private String[] opciones = {"Piedra", "Papel", "Tijera"};
     private Random random = new Random();
@@ -28,10 +41,7 @@ public class Partida extends AppCompatActivity {
     private int contadorMonedas = 0;
     private int intentos = 3;
     private boolean juegoEnProgreso = false;
-
-
-    private DatabaseHelper databaseHelper; // Agregar una instancia de DatabaseHelper
-
+    private Controlador controlador; // Agregar una instancia de Controlador
     private MediaPlayer mpGanar, mpPerder, mpEmpate; // Agregar reproductores de audio
 
     @Override
@@ -45,6 +55,12 @@ public class Partida extends AppCompatActivity {
         if (actionBar != null) {
             // Ocultar el título por defecto
             actionBar.setDisplayShowTitleEnabled(false);
+        }
+
+        // Nombre del equipo en el ActionBar
+        if (actionBar != null) {
+            actionBar.setDisplayShowTitleEnabled(true);
+            actionBar.setTitle("NativeNinjas");
         }
 
         // Inicializar reproductores de audio
@@ -67,11 +83,6 @@ public class Partida extends AppCompatActivity {
             nombreJugador = intent.getStringExtra("nombreJugador");
         }
 
-        // Nombre del equipo en el ActionBar
-        if (actionBar != null) {
-            actionBar.setDisplayShowTitleEnabled(true);
-            actionBar.setTitle("NativeNinjas");
-        }
 
         // Configurar el nombre del jugador en el TextView correspondiente
         TextView txtNombreJugador = findViewById(R.id.txtNombreJugador);
@@ -99,16 +110,11 @@ public class Partida extends AppCompatActivity {
         });
 
         // Inicializar el DatabaseHelper
-        databaseHelper = new DatabaseHelper(this);
+        controlador = new Controlador();
+        controlador.addDatos(this);
     }
 
-    // Funcion para reproducir los sonidos.
-    private void reproducirSonido(MediaPlayer mediaPlayer) {
-        if (mediaPlayer != null) {
-            mediaPlayer.start();
-        }
-    }
-
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void jugar(String movimientoJugador) {
         // Verificar si el juego está en progreso
         if (juegoEnProgreso) {
@@ -157,21 +163,22 @@ public class Partida extends AppCompatActivity {
         }, 2000); // 2000 milisegundos = 2 segundos
     }
 
-
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void guardarPuntuacionFinal(int puntuacionFinal) {
         // Obtener el nombre del jugador
         String nombreJugador = getIntent().getStringExtra("nombreJugador");
-        String fechaActual = obtenerFechaActual();
-        Log.d("Fecha", "Fecha actual: " + fechaActual);
+        Log.d("Fecha", "Fecha actual: " + new Date().toString());
         // Insertar la puntuación final y el nombre del jugador en la base de datos
-        long id = databaseHelper.insertarJugador(nombreJugador, puntuacionFinal, fechaActual);
-        if (id != -1) {
+        controlador.guardarPartida(nombreJugador, puntuacionFinal);
+        /** if (id != -1) {
             Toast.makeText(this, "Puntuación guardada en la base de datos.", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "Error al guardar la puntuación en la base de datos.", Toast.LENGTH_SHORT).show();
         }
+         **/
 
         Intent intent = new Intent(this, Final.class);
+        intent.putExtra("nombreJugador", nombreJugador);
         intent.putExtra("puntuacionFinal", puntuacionFinal);
         startActivity(intent);
         finish(); // Finalizar la actividad actual
@@ -182,11 +189,28 @@ public class Partida extends AppCompatActivity {
         txtIntentos.setText("Intentos restantes: " + intentos);
     }
 
-    private String obtenerFechaActual() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
-        Date date = new Date();
-        String fechaActual = dateFormat.format(date);
-        Log.d("Fecha", "Fecha actual: " + fechaActual);
-        return fechaActual;
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        if (id == R.id.info) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(Partida.this);
+            builder.setMessage("Esta es la app del clásico juego Piedra, Papel, Tijera, desarrollada por el equipo Native Ninjas");
+            builder.show();
+            return true;
+        } else if (id == R.id.exit) {
+            finishAffinity();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 }
