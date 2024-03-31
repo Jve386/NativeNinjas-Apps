@@ -1,4 +1,7 @@
 # NativeNinjas 🉐 - Piedra Papel Tijera 
+Rock, Paper, Scissors app featuring random selection for gameplay against the computer, implemented with DAO and MVC architecture, and utilizing SQLite for safe storage of player rankings
+
+![](img/demo.gif)
 
 ## 🗡️Technologies Used 
 - Language: Java
@@ -26,29 +29,30 @@
 - Application must be compatible with different Android devices.
 
 ## 🗡️ UML Sequence Diagram 
-![Alt Text](img/sequence_diagram.jpg)
+![](img/sequence_diagram.jpg)
 
 ## 🗡️ UML Class Diagram
-![Alt Text](img/classes_diagram.jpg)
+![](img/classes_diagram.jpg)
 
 ## 🗡️ Mockup UI
-![Alt Text](img/Sample_screens.jpg)
+![](img/Sample_screens.jpg)
 
 
 ## 🗡️ Use of Constraints for Adaptive Design
 In our project, we found that using constraints in Constraint Layout is essential for creating interfaces adaptable to different screen sizes and device orientations. By defining vertical and horizontal constraints properly, aligning views correctly, and adjusting margins and relative dimensions, we achieved a consistent and visually appealing design across a variety of devices.
-![Alt Text](img/Sample_layoutConstraint.jpg)
+
+![](img/Sample_layoutConstraint.jpg)
 
 ## 🗡️ Asynchronous SQLite Calls with RxJava
 In the provided example, we used RxJava along with the Single class to perform an asynchronous query to the SQLite database to obtain the player's ranking. The `getRanking()` function returns a Single that emits a list of players ordered by score asynchronously.
 
-![Alt Text](img/Sample_RxJava.jpg)
+![](img/Sample_RxJava.jpg)
 
 This approach ensures that database query operations are performed efficiently and without affecting the responsiveness of the UI.
 
 ## 🗡️ Data Storage and Management
 
-![Alt Text](img/Sample_data.jpg)
+![](img/Sample_data.jpg)
 
 - Utilization of Static Resources: Static resources have been used to store game images, improving application efficiency and loading.
 - SQLite Database: The application utilizes an SQLite database to store game history and player's coin amount efficiently and securely.
