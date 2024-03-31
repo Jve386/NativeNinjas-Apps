@@ -38,7 +38,7 @@ public class Partida extends AppCompatActivity {
     private String movimientoComputadora = opciones[random.nextInt(opciones.length)];
     private int contadorMonedas = 0;
     private int intentos = 3;
-
+    private int puntuacionMasAltaEnBBDD; // Variable para almacenar la puntuación más alta de la base de datos
     private Controlador controlador; // Agregar una instancia de Controlador
 
     @Override
@@ -103,6 +103,10 @@ public class Partida extends AppCompatActivity {
         // Inicializar el DatabaseHelper
         controlador = new Controlador();
         controlador.addDatos(this);
+
+        // Obtener la puntuación más alta de la base de datos
+        String idUsuario = getIntent().getStringExtra("nombreJugador");
+        puntuacionMasAltaEnBBDD = controlador.obtenerRecord(idUsuario);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -152,6 +156,7 @@ public class Partida extends AppCompatActivity {
         Intent intent = new Intent(this, Final.class);
         intent.putExtra("nombreJugador", nombreJugador);
         intent.putExtra("puntuacionFinal", puntuacionFinal);
+        intent.putExtra("puntuacionMasAltaEnBBDD", puntuacionMasAltaEnBBDD); // Pasar la puntuación más alta de la BBDD
         startActivity(intent);
         finish(); // Finalizar la actividad actual
     }

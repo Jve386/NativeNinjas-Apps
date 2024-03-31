@@ -39,7 +39,9 @@ public class Final extends AppCompatActivity {
 
         // Recuperar la puntuación final de la actividad anterior
         int puntuacionFinal = getIntent().getIntExtra("puntuacionFinal", 0);
+        int puntuacionMasAltaEnBBDD = getIntent().getIntExtra("puntuacionMasAltaEnBBDD", 0);
         txtPuntuacionFinal.setText("Puntuación Final: " + puntuacionFinal);
+
 
         // Obtener la puntuación más alta de la base de datos
         controlador = new Controlador();
@@ -47,11 +49,11 @@ public class Final extends AppCompatActivity {
         idUsuario = getIntent().getStringExtra("nombreJugador");
         System.out.println(idUsuario);
         int puntuacionMasAlta = controlador.obtenerRecord(idUsuario);
-        txtPuntuacionMasAlta.setText("Puntuación más alta: " + puntuacionMasAlta);
+        txtPuntuacionMasAlta.setText("Puntuación más alta: " + puntuacionMasAltaEnBBDD);
 
-        // Comparar la puntuación final con la puntuación más alta
-        if (puntuacionFinal > puntuacionMasAlta) {
-            // Si la puntuación final es mayor, mostrar "Record superado"
+        // Comparar la puntuación final con la puntuación más alta en la base de datos
+        if (puntuacionFinal > puntuacionMasAltaEnBBDD) {
+            // Si la puntuación final es mayor que la puntuación más alta en la base de datos, mostrar "Record superado"
             txtRecord.setText("Record superado");
         } else {
             // Si la puntuación final no es mayor, mostrar "Record no superado"
