@@ -1,7 +1,7 @@
 # NativeNinjas 🉐 - Piedra Papel Tijera 
 Rock, Paper, Scissors app featuring random selection for gameplay against the computer, implemented with DAO and MVC architecture, and utilizing SQLite for safe storage of player rankings
 
-![](img/demo.gif)
+![](img/demo2.gif)
 
 ## 🗡️Technologies Used 
 - Language: Java
