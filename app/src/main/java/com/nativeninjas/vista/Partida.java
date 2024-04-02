@@ -106,7 +106,7 @@ public class Partida extends AppCompatActivity {
 
         // Obtener la puntuación más alta de la base de datos
         String idUsuario = getIntent().getStringExtra("nombreJugador");
-        puntuacionMasAltaEnBBDD = controlador.obtenerRecord(idUsuario);
+        puntuacionMasAltaEnBBDD = controlador.obtenerRecord();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)

@@ -39,16 +39,13 @@ public class Final extends AppCompatActivity {
 
         // Recuperar la puntuación final de la actividad anterior
         int puntuacionFinal = getIntent().getIntExtra("puntuacionFinal", 0);
-        int puntuacionMasAltaEnBBDD = getIntent().getIntExtra("puntuacionMasAltaEnBBDD", 0);
         txtPuntuacionFinal.setText("Puntuación Final: " + puntuacionFinal);
 
 
         // Obtener la puntuación más alta de la base de datos
         controlador = new Controlador();
         controlador.addDatos(this);
-        idUsuario = getIntent().getStringExtra("nombreJugador");
-        System.out.println(idUsuario);
-        int puntuacionMasAlta = controlador.obtenerRecord(idUsuario);
+        int puntuacionMasAltaEnBBDD = controlador.obtenerRecord();
         txtPuntuacionMasAlta.setText("Puntuación más alta: " + puntuacionMasAltaEnBBDD);
 
         // Comparar la puntuación final con la puntuación más alta en la base de datos
