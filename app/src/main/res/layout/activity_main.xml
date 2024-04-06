@@ -2,6 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
+    android:backgroundTint="@color/teal_700"
     android:padding="16dp">
 
     <ImageView
@@ -10,7 +12,7 @@
         android:layout_height="400dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
-        android:src="@drawable/ic_ninja" />
+        android:src="@drawable/ic_ninjamain" />
 
     <Button
         android:id="@+id/btnJugar"

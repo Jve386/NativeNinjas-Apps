@@ -3,11 +3,14 @@ package com.nativeninjas.vista;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.nativeninjas.controlador.Controlador;
@@ -38,16 +41,16 @@ public class Final extends AppCompatActivity {
         int puntuacionFinal = getIntent().getIntExtra("puntuacionFinal", 0);
         txtPuntuacionFinal.setText("Puntuación Final: " + puntuacionFinal);
 
-        // Obtener la puntuación más alta de la base de datos
-        controlador = new Controlador(this);
-        idUsuario = getIntent().getStringExtra("nombreJugador");
-        System.out.println(idUsuario);
-        int puntuacionMasAlta = controlador.obtenerRecord(idUsuario);
-        txtPuntuacionMasAlta.setText("Puntuación más alta: " + puntuacionMasAlta);
 
-        // Comparar la puntuación final con la puntuación más alta
-        if (puntuacionFinal > puntuacionMasAlta) {
-            // Si la puntuación final es mayor, mostrar "Record superado"
+        // Obtener la puntuación más alta de la base de datos
+
+        controlador = new Controlador(this);
+        int puntuacionMasAltaEnBBDD = controlador.obtenerRecord();
+        txtPuntuacionMasAlta.setText("Puntuación más alta: " + puntuacionMasAltaEnBBDD);
+
+        // Comparar la puntuación final con la puntuación más alta en la base de datos
+        if (puntuacionFinal > puntuacionMasAltaEnBBDD) {
+            // Si la puntuación final es mayor que la puntuación más alta en la base de datos, mostrar "Record superado"
             txtRecord.setText("Record superado");
         } else {
             // Si la puntuación final no es mayor, mostrar "Record no superado"
@@ -84,5 +87,29 @@ public class Final extends AppCompatActivity {
                 finishAffinity(); // Cerrar todas las actividades de la aplicación
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        if (id == R.id.info) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(Final.this);
+            builder.setMessage("Esta es la app del clásico juego Piedra, Papel, Tijera, desarrollada por el equipo Native Ninjas");
+            builder.show();
+            return true;
+        } else if (id == R.id.exit) {
+            finishAffinity();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

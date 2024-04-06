@@ -45,8 +45,8 @@ public class Controlador {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public int obtenerRecord(String idUsuario) {
-        return  this.datos.obtenerRecord(idUsuario);
+    public int obtenerRecord() {
+        return this.datos.obtenerRecord(); // Llama al método en la capa de datos correspondiente sin pasar ningún argumento
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)

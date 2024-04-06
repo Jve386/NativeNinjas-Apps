@@ -190,10 +190,9 @@ public class PartidaDAO extends SQLiteOpenHelper implements DAO<Partida, String>
         db.close();
         return ranking;
     }
-    public int obtenerMaximaPuntuacion(String idUsuario) {
+    public int obtenerMaximaPuntuacion() {
         String selectQuery = "SELECT "+COLUMN_MONEDAS+
                 " FROM "+TABLE_PARTIDA +
-                " WHERE "+ COLUMN_USUARIO +"='"+idUsuario+"'"+
                 " ORDER BY " + COLUMN_MONEDAS +" DESC"+
                 " LIMIT 1";
         SQLiteDatabase db = this.getWritableDatabase();
