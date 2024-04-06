@@ -25,16 +25,21 @@ public class PartidaDAO extends SQLiteOpenHelper implements DAO<Partida, String>
     private static final String COLUMN_USUARIO = "usuario_id";
     private static final String COLUMN_FECHA = "fecha";
     private static final String COLUMN_MONEDAS = "monedas";
+    private static final String COLUMN_LATITUD = "latitud";
+    private static final String COLUMN_LONGITUD = "longitud";
     private static final String CREATE_TABLE_PARTIDAS = "CREATE TABLE " + TABLE_PARTIDA + "(" +
             COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
             COLUMN_USUARIO + " TEXT," +
             COLUMN_FECHA + " TEXT," +
             COLUMN_MONEDAS + " INTEGER," +
+            COLUMN_LATITUD + " TEXT," +
+            COLUMN_LONGITUD + " TEXT," +
             "FOREIGN KEY (" + COLUMN_USUARIO + ") REFERENCES usuario(id) ON DELETE CASCADE ON UPDATE CASCADE" +
             ")";
 
 
     public PartidaDAO(Context context) {
+
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
@@ -56,6 +61,8 @@ public class PartidaDAO extends SQLiteOpenHelper implements DAO<Partida, String>
         values.put(COLUMN_USUARIO, partida.getUsuarioId());
         values.put(COLUMN_MONEDAS, partida.getMonedas());
         values.put(COLUMN_FECHA, partida.getFecha());
+        values.put(COLUMN_LATITUD, partida.getLatitud());
+        values.put(COLUMN_LONGITUD, partida.getLongitud());
         db.insert(TABLE_PARTIDA, null, values);
         db.close();
     }
@@ -65,10 +72,10 @@ public class PartidaDAO extends SQLiteOpenHelper implements DAO<Partida, String>
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(COLUMN_MONEDAS, partida.getMonedas());
+        values.put(COLUMN_LATITUD, partida.getLatitud());
+        values.put(COLUMN_LONGITUD, partida.getLongitud());
         db.update(TABLE_PARTIDA, values, COLUMN_ID + "=?", new String[]{Integer.toString(partida.getId())});
         db.close();
-
-
     }
 
     @Override
@@ -90,13 +97,17 @@ public class PartidaDAO extends SQLiteOpenHelper implements DAO<Partida, String>
         String idUsuario;
         int monedas;
         String fecha;
+        String latitud;
+        String longitud;
         Partida partida;
         while (!res.isAfterLast()) {
             id = res.getInt(res.getColumnIndex(COLUMN_ID));
             idUsuario = res.getString(res.getColumnIndex(COLUMN_USUARIO));
             monedas = res.getInt(res.getColumnIndex(COLUMN_MONEDAS));
             fecha = res.getString(res.getColumnIndex(COLUMN_FECHA));
-            partida = new Partida(monedas, idUsuario);
+            latitud = res.getString(res.getColumnIndex(COLUMN_LATITUD));
+            longitud = res.getString(res.getColumnIndex(COLUMN_LONGITUD));
+            partida = new Partida(monedas, idUsuario, latitud, longitud);
             partida.setId(id);
             partida.setFecha(fecha);
             array_list.add(partida);
@@ -114,13 +125,17 @@ public class PartidaDAO extends SQLiteOpenHelper implements DAO<Partida, String>
         String idUsuario;
         int monedas;
         String fecha;
+        String latitud;
+        String longitud;
         Partida partida = null;
         while (!res.isAfterLast()) {
             id = res.getInt(res.getColumnIndex(COLUMN_ID));
             idUsuario = res.getString(res.getColumnIndex(COLUMN_USUARIO));
             monedas = res.getInt(res.getColumnIndex(COLUMN_MONEDAS));
             fecha = res.getString(res.getColumnIndex(COLUMN_FECHA));
-            partida = new Partida(monedas, idUsuario);
+            latitud = res.getString(res.getColumnIndex(COLUMN_LATITUD));
+            longitud = res.getString(res.getColumnIndex(COLUMN_LONGITUD));
+            partida = new Partida(monedas, idUsuario, latitud, longitud);
             partida.setId(id);
             partida.setFecha(fecha);
             res.moveToNext();
@@ -131,7 +146,7 @@ public class PartidaDAO extends SQLiteOpenHelper implements DAO<Partida, String>
     public List<Partida> obtenerRanking() {
         List<Partida> ranking = new ArrayList<>();
         String selectQuery = "SELECT "+COLUMN_ID+", "+COLUMN_USUARIO+", "+COLUMN_MONEDAS+", "+COLUMN_FECHA+
-                " FROM "+TABLE_PARTIDA +
+                ", "+COLUMN_LATITUD+", "+COLUMN_LONGITUD+" FROM "+TABLE_PARTIDA +
                 " JOIN ( SELECT "+COLUMN_USUARIO+" AS aux_usuario, MAX("+COLUMN_MONEDAS+") AS max_monedas " +
                 "       FROM "+TABLE_PARTIDA+" GROUP BY "+COLUMN_USUARIO +
                 "       ) AS aux " +
@@ -154,13 +169,17 @@ public class PartidaDAO extends SQLiteOpenHelper implements DAO<Partida, String>
         int monedas;
         String fecha;
         Partida partida;
+        String latitud;
+        String longitud;
         if(res.moveToFirst()) {
             do{
                 id = res.getInt(res.getColumnIndex(COLUMN_ID));
                 idUsuario = res.getString(res.getColumnIndex(COLUMN_USUARIO));
                 monedas = res.getInt(res.getColumnIndex(COLUMN_MONEDAS));
                 fecha = res.getString(res.getColumnIndex(COLUMN_FECHA));
-                partida = new Partida(monedas, idUsuario);
+                latitud = res.getString(res.getColumnIndex(COLUMN_LATITUD));
+                longitud = res.getString(res.getColumnIndex(COLUMN_LONGITUD));
+                partida = new Partida(monedas, idUsuario, latitud, longitud);
                 partida.setId(id);
                 partida.setFecha(fecha);
                 ranking.add(partida);

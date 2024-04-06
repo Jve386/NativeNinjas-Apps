@@ -19,6 +19,16 @@ import io.reactivex.rxjava3.core.Single;
 
 public class Controlador {
     private Datos datos;
+    private  CoordenatesTracker coordenatesTracker;
+
+    //CONSTRUCTOR
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public Controlador(Context context) {
+        this.datos = new Datos(context);
+        this.coordenatesTracker = new CoordenatesTracker();
+        this.coordenatesTracker.InicialicerTracker(context);
+    }
+
 
     //METHODS
 
@@ -26,17 +36,12 @@ public class Controlador {
         this.datos.registrarUsuario(id);
     }
 
-
-
-    public void addDatos(Context context){
-        this.datos = new Datos(context);
-
-    }
-
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void guardarPartida(String nombreJugador, int puntuacionFinal) {
-        this.datos.addPartida(nombreJugador,puntuacionFinal);
-
+        this.coordenatesTracker.getLocation();
+        String latitud = String.valueOf(this.coordenatesTracker.getLatitude());
+        String longitud = String.valueOf(this.coordenatesTracker.getLongitude());
+        this.datos.addPartida(nombreJugador,puntuacionFinal, longitud,latitud);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)

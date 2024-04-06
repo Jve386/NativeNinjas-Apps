@@ -39,8 +39,7 @@ public class Final extends AppCompatActivity {
         txtPuntuacionFinal.setText("Puntuación Final: " + puntuacionFinal);
 
         // Obtener la puntuación más alta de la base de datos
-        controlador = new Controlador();
-        controlador.addDatos(this);
+        controlador = new Controlador(this);
         idUsuario = getIntent().getStringExtra("nombreJugador");
         System.out.println(idUsuario);
         int puntuacionMasAlta = controlador.obtenerRecord(idUsuario);

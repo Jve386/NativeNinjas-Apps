@@ -54,8 +54,7 @@ public class Ranking extends AppCompatActivity {
         // Obtener el ranking de la base de datos usando RxJava
 
         //**
-        controlador = new Controlador();
-        controlador.addDatos(this);
+        controlador = new Controlador(this);
         disposable = Single.fromCallable(() -> controlador.obtenerRanking())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

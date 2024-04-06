@@ -98,8 +98,8 @@ public class Partida extends AppCompatActivity {
         });
 
         // Inicializar el DatabaseHelper
-        controlador = new Controlador();
-        controlador.addDatos(this);
+        controlador = new Controlador(this);
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
