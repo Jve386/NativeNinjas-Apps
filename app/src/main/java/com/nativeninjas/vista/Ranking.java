@@ -57,7 +57,8 @@ public class Ranking extends AppCompatActivity {
         // Obtener el ranking de la base de datos usando RxJava
 
         //**
-        controlador = new Controlador(this);
+        controlador = new Controlador();
+        controlador.addDatos(this);
         disposable = Single.fromCallable(() -> controlador.obtenerRanking())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -113,7 +114,7 @@ public class Ranking extends AppCompatActivity {
 
                 // Configurar la fecha debajo del texto principal con un tamaño de letra más pequeño
                 TextView textViewFecha = view.findViewById(android.R.id.text2);
-                textViewFecha.setText("Fecha: " + partida.getFecha());
+                textViewFecha.setText("Fecha: " + partida.getFecha() + " Latitud: " + String.valueOf(partida.getLatitud()) + " Longitud: " + String.valueOf(partida.getLongitud()));
                 textViewFecha.setTextSize(12);
 
                 return view;
