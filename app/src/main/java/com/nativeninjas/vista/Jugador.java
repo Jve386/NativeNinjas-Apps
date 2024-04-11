@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -28,20 +27,6 @@ public class Jugador extends AppCompatActivity {
         editTextNombre = findViewById(R.id.editTextNombre);
         btnConfirmar = findViewById(R.id.btnConfirmar);
         btnSalir = findViewById(R.id.btnSalir);
-
-        // Obtener el ActionBar
-        ActionBar actionBar = getSupportActionBar();
-
-        if (actionBar != null) {
-            // Ocultar el título por defecto
-            actionBar.setDisplayShowTitleEnabled(false);
-        }
-
-        // Nombre del equipo en el ActionBar
-        if (actionBar != null) {
-            actionBar.setDisplayShowTitleEnabled(true);
-            actionBar.setTitle("NativeNinjas");
-        }
 
         btnConfirmar.setOnClickListener(new View.OnClickListener() {
             @Override

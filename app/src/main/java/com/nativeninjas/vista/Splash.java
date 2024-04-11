@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.WindowManager;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.nativeninjas.prod1.R;
@@ -19,20 +18,6 @@ public class Splash extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //EdgeToEdge.enable(this);
         setContentView(R.layout.activity_splash);
-
-        // Obtener el ActionBar
-        ActionBar actionBar = getSupportActionBar();
-
-        if (actionBar != null) {
-            // Ocultar el título por defecto
-            actionBar.setDisplayShowTitleEnabled(false);
-        }
-
-        // Nombre del equipo en el ActionBar
-        if (actionBar != null) {
-            actionBar.setDisplayShowTitleEnabled(true);
-            actionBar.setTitle("NativeNinjas");
-        }
         /*ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);

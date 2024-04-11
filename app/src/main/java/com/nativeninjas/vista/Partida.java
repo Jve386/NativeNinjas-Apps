@@ -6,7 +6,6 @@ import java.util.Random;
 
 
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -24,6 +23,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.ActionBar;
 
+import android.media.MediaPlayer;
+
 import com.nativeninjas.controlador.Controlador;
 
 import com.nativeninjas.prod1.R;
@@ -40,9 +41,10 @@ public class Partida extends AppCompatActivity {
     private String movimientoComputadora = opciones[random.nextInt(opciones.length)];
     private int contadorMonedas = 0;
     private int intentos = 3;
-    private boolean juegoEnProgreso = false;
+    private int puntuacionMasAltaEnBBDD; // Variable para almacenar la puntuación más alta de la base de datos
     private Controlador controlador; // Agregar una instancia de Controlador
     private MediaPlayer mpGanar, mpPerder, mpEmpate; // Agregar reproductores de audio
+    private boolean juegoEnProgreso = false; // handler
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,17 +58,6 @@ public class Partida extends AppCompatActivity {
             // Ocultar el título por defecto
             actionBar.setDisplayShowTitleEnabled(false);
         }
-
-        // Nombre del equipo en el ActionBar
-        if (actionBar != null) {
-            actionBar.setDisplayShowTitleEnabled(true);
-            actionBar.setTitle("NativeNinjas");
-        }
-
-        // Inicializar reproductores de audio
-        mpGanar = MediaPlayer.create(this, R.raw.ganar);
-        mpPerder = MediaPlayer.create(this, R.raw.perder);
-        mpEmpate = MediaPlayer.create(this, R.raw.empate);
 
         btnPiedra = findViewById(R.id.btnPiedra);
         btnPapel = findViewById(R.id.btnPapel);
@@ -83,6 +74,11 @@ public class Partida extends AppCompatActivity {
             nombreJugador = intent.getStringExtra("nombreJugador");
         }
 
+        // Nombre del equipo en el ActionBar
+        if (actionBar != null) {
+            actionBar.setDisplayShowTitleEnabled(true);
+            actionBar.setTitle("NativeNinjas");
+        }
 
         // Configurar el nombre del jugador en el TextView correspondiente
         TextView txtNombreJugador = findViewById(R.id.txtNombreJugador);
@@ -112,18 +108,24 @@ public class Partida extends AppCompatActivity {
         // Inicializar el DatabaseHelper
         controlador = new Controlador();
         controlador.addDatos(this);
-    }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    private void jugar(String movimientoJugador) {
+        // Obtener la puntuación más alta de la base de datos
+        String idUsuario = getIntent().getStringExtra("nombreJugador");
+        puntuacionMasAltaEnBBDD = controlador.obtenerRecord();
+
+        // Inicializar reproductores de audio
+        mpGanar = MediaPlayer.create(this, R.raw.ganar);
+        mpPerder = MediaPlayer.create(this, R.raw.perder);
+        mpEmpate = MediaPlayer.create(this, R.raw.empate);
+
         // Verificar si el juego está en progreso
         if (juegoEnProgreso) {
             return; // Salir si el juego está en progreso
         }
+    }
 
-        // Establecer que el juego está en progreso
-        juegoEnProgreso = true;
-
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void jugar(String movimientoJugador) {
         // Obtener el movimiento de la computadora
         String movimientoComputadoraTexto = "La computadora eligió: " + movimientoComputadora;
 
@@ -155,10 +157,7 @@ public class Partida extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                // Actualizar el movimiento de la computadora para la siguiente jugada
                 movimientoComputadora = opciones[random.nextInt(opciones.length)];
-                // Establecer que el juego ya no está en progreso
-                juegoEnProgreso = false;
             }
         }, 2000); // 2000 milisegundos = 2 segundos
     }
@@ -171,15 +170,16 @@ public class Partida extends AppCompatActivity {
         // Insertar la puntuación final y el nombre del jugador en la base de datos
         controlador.guardarPartida(nombreJugador, puntuacionFinal);
         /** if (id != -1) {
-            Toast.makeText(this, "Puntuación guardada en la base de datos.", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, "Error al guardar la puntuación en la base de datos.", Toast.LENGTH_SHORT).show();
-        }
+         Toast.makeText(this, "Puntuación guardada en la base de datos.", Toast.LENGTH_SHORT).show();
+         } else {
+         Toast.makeText(this, "Error al guardar la puntuación en la base de datos.", Toast.LENGTH_SHORT).show();
+         }
          **/
 
         Intent intent = new Intent(this, Final.class);
         intent.putExtra("nombreJugador", nombreJugador);
         intent.putExtra("puntuacionFinal", puntuacionFinal);
+        intent.putExtra("puntuacionMasAltaEnBBDD", puntuacionMasAltaEnBBDD); // Pasar la puntuación más alta de la BBDD
         startActivity(intent);
         finish(); // Finalizar la actividad actual
     }
@@ -211,6 +211,13 @@ public class Partida extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    // Funcion para reproducir los sonidos.
+    private void reproducirSonido(MediaPlayer mediaPlayer) {
+        if (mediaPlayer != null) {
+            mediaPlayer.start();
+        }
     }
 
 }

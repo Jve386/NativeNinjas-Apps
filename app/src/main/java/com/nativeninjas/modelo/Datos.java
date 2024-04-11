@@ -65,7 +65,7 @@ public class Datos {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public int obtenerRecord(String idUsuario) {
-        return this.partidaDAO.obtenerMaximaPuntuacion(idUsuario);
+    public int obtenerRecord() {
+        return this.partidaDAO.obtenerMaximaPuntuacion();
     }
 }

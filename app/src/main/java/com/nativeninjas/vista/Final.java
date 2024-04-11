@@ -12,7 +12,6 @@ import android.widget.TextView;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.ActionBar;
 
 import com.nativeninjas.controlador.Controlador;
 import com.nativeninjas.prod1.R;
@@ -37,36 +36,21 @@ public class Final extends AppCompatActivity {
         btnSalir = findViewById(R.id.btnSalir);
         btnReintentar = findViewById(R.id.btnReintentar);
 
-        // Obtener el ActionBar
-        ActionBar actionBar = getSupportActionBar();
-
-        if (actionBar != null) {
-            // Ocultar el título por defecto
-            actionBar.setDisplayShowTitleEnabled(false);
-        }
-
-        // Nombre del equipo en el ActionBar
-        if (actionBar != null) {
-            actionBar.setDisplayShowTitleEnabled(true);
-            actionBar.setTitle("NativeNinjas");
-        }
-
 
         // Recuperar la puntuación final de la actividad anterior
         int puntuacionFinal = getIntent().getIntExtra("puntuacionFinal", 0);
         txtPuntuacionFinal.setText("Puntuación Final: " + puntuacionFinal);
 
+
         // Obtener la puntuación más alta de la base de datos
         controlador = new Controlador();
         controlador.addDatos(this);
-        idUsuario = getIntent().getStringExtra("nombreJugador");
-        System.out.println(idUsuario);
-        int puntuacionMasAlta = controlador.obtenerRecord(idUsuario);
-        txtPuntuacionMasAlta.setText("Puntuación más alta: " + puntuacionMasAlta);
+        int puntuacionMasAltaEnBBDD = controlador.obtenerRecord();
+        txtPuntuacionMasAlta.setText("Puntuación más alta: " + puntuacionMasAltaEnBBDD);
 
-        // Comparar la puntuación final con la puntuación más alta
-        if (puntuacionFinal > puntuacionMasAlta) {
-            // Si la puntuación final es mayor, mostrar "Record superado"
+        // Comparar la puntuación final con la puntuación más alta en la base de datos
+        if (puntuacionFinal > puntuacionMasAltaEnBBDD) {
+            // Si la puntuación final es mayor que la puntuación más alta en la base de datos, mostrar "Record superado"
             txtRecord.setText("Record superado");
         } else {
             // Si la puntuación final no es mayor, mostrar "Record no superado"

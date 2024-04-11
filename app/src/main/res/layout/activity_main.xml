@@ -12,7 +12,7 @@
         android:layout_height="400dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
-        android:src="@drawable/ic_ninja" />
+        android:src="@drawable/ic_ninjamain" />
 
     <Button
         android:id="@+id/btnJugar"

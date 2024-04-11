@@ -31,8 +31,13 @@ Rock, Paper, Scissors app featuring random selection for gameplay against the co
 ## 🗡️ UML Sequence Diagram 
 ![](img/sequence_diagram.jpg)
 
-## 🗡️ UML Class Diagram
-![](img/classes_diagram.jpg)
+## 🗡️ UML Class Diagrams
+![](img/UML_clases.jpg)
+
+![](img/UML_DAO.jpg)
+
+![](img/UML_BBDD.jpg)
+
 
 ## 🗡️ Mockup UI
 ![](img/Sample_screens.jpg)

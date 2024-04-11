@@ -7,37 +7,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.media.MediaPlayer;
-
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AlertDialog;
 
+import com.nativeninjas.MyApplication;
 import com.nativeninjas.prod1.R;
 
 public class MainActivity extends AppCompatActivity {
     private Button btnJugar, btnSalir, btnRanking;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-        // Obtener el ActionBar
-        ActionBar actionBar = getSupportActionBar();
-
-        if (actionBar != null) {
-            // Ocultar el título por defecto
-            actionBar.setDisplayShowTitleEnabled(false);
-        }
-
-        // Nombre del equipo en el ActionBar
-        if (actionBar != null) {
-            actionBar.setDisplayShowTitleEnabled(true);
-            actionBar.setTitle("NativeNinjas");
-        }
 
         btnJugar = findViewById(R.id.btnJugar);
         btnSalir = findViewById(R.id.btnSalir);
@@ -112,5 +94,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        MyApplication.getInstance().getMediaPlayer().stop();
     }
 }

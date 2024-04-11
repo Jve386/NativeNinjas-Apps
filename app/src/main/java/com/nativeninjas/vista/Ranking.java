@@ -19,7 +19,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -51,20 +50,6 @@ public class Ranking extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ranking);
-
-        // Obtener el ActionBar
-        ActionBar actionBar = getSupportActionBar();
-
-        if (actionBar != null) {
-            // Ocultar el título por defecto
-            actionBar.setDisplayShowTitleEnabled(false);
-        }
-
-        // Nombre del equipo en el ActionBar
-        if (actionBar != null) {
-            actionBar.setDisplayShowTitleEnabled(true);
-            actionBar.setTitle("NativeNinjas");
-        }
 
         btnVolver = findViewById(R.id.btnVolver);
         listViewRanking = findViewById(R.id.listViewRanking);
