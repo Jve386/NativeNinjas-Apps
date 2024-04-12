@@ -1,10 +1,17 @@
 package com.nativeninjas.vista;
 
+import android.content.ContentResolver;
+import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.CalendarContract;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +27,7 @@ import com.nativeninjas.prod1.R;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.Calendar;
 import java.util.Date;
 
 public class Final extends AppCompatActivity {
@@ -28,6 +36,20 @@ public class Final extends AppCompatActivity {
     private Button btnMain, btnSalir, btnReintentar, btnScreenShoot;
     private Controlador controlador;
     private String idUsuario;
+    public static final String[] EVENT_PROJECTION = new String[]{
+            CalendarContract.Calendars._ID,                           // 0
+            CalendarContract.Calendars.ACCOUNT_NAME,                  // 1
+            CalendarContract.Calendars.CALENDAR_DISPLAY_NAME,         // 2
+            CalendarContract.Calendars.OWNER_ACCOUNT                  // 3
+    };
+
+    // The indices for the projection array above.
+    private static final int PROJECTION_ID_INDEX = 0;
+    private static final int PROJECTION_ACCOUNT_NAME_INDEX = 1;
+    private static final int PROJECTION_DISPLAY_NAME_INDEX = 2;
+    private static final int PROJECTION_OWNER_ACCOUNT_INDEX = 3;
+
+    private static final String DEBUG_TAG = "MyActivity";
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -65,7 +87,7 @@ public class Final extends AppCompatActivity {
             // Si la puntuación final no es mayor, mostrar "Record no superado"
             txtRecord.setText("Record no superado");
         }
-        controlador.anadirDatosCalendario();
+        anadirDatosCalendario();
 
 
 
@@ -130,6 +152,73 @@ public class Final extends AppCompatActivity {
                 finishAffinity(); // Cerrar todas las actividades de la aplicación
             }
         });
+    }
+
+    private void anadirDatosCalendario() {
+
+        // Run query
+        Cursor cur = null;
+        ContentResolver cr = getContentResolver();
+        Uri uri = CalendarContract.Calendars.CONTENT_URI;
+        String selection = "("+ CalendarContract.Calendars.ACCOUNT_TYPE + " = ?)";
+        String[] selectionArgs = new String[] {"com.gmail"};
+        // Submit the query and get a Cursor object back.
+        cur = cr.query(uri, EVENT_PROJECTION, selection, selectionArgs, null);
+
+        // Use the cursor to step through the returned records
+        while (cur.moveToNext()) {
+            long calID = 0;
+            String displayName = null;
+            String accountName = null;
+            String ownerName = null;
+
+            // Get the field values
+            calID = cur.getLong(PROJECTION_ID_INDEX);
+            displayName = cur.getString(PROJECTION_DISPLAY_NAME_INDEX);
+            accountName = cur.getString(PROJECTION_ACCOUNT_NAME_INDEX);
+            ownerName = cur.getString(PROJECTION_OWNER_ACCOUNT_INDEX);
+
+            // Do something with the values...
+
+        }
+        long calID = 2;
+        ContentValues values = new ContentValues();
+        // The new display name for the calendar
+        values.put(CalendarContract.Calendars.CALENDAR_DISPLAY_NAME, "Trevor's Calendar");
+        Uri updateUri = ContentUris.withAppendedId(CalendarContract.Calendars.CONTENT_URI, calID);
+        int rows = getContentResolver().update(updateUri, values, null, null);
+        Log.i(DEBUG_TAG, "Rows updated: " + rows);
+
+
+
+        //METHODS
+
+        public void anadirDatosCalendario(){
+            long calID = 0;
+            long startMillis = 0;
+            long endMillis = 0;
+            Calendar beginTime = Calendar.getInstance();
+            beginTime.set(2024, 4, 12, 10, 10);
+            startMillis = beginTime.getTimeInMillis();
+            Calendar endTime = Calendar.getInstance();
+            endTime.set(2024, 4, 12, 10, 10);
+            endMillis = endTime.getTimeInMillis();
+
+            ContentResolver cr = getContentResolver();
+            ContentValues values = new ContentValues();
+            values.put(CalendarContract.Events.DTSTART, startMillis);
+            values.put(CalendarContract.Events.DTEND, endMillis);
+            values.put(CalendarContract.Events.TITLE, "Partida PiedraPapelTijera");
+            values.put(CalendarContract.Events.DESCRIPTION, "PiedraPapelTijera");
+            values.put(CalendarContract.Events.CALENDAR_ID, calID);
+            values.put(CalendarContract.Events.EVENT_TIMEZONE, "America/Los_Angeles");
+            Uri uri = cr.insert(CalendarContract.Events.CONTENT_URI, values);
+
+// get the event ID that is the last element in the Uri
+            long eventID = Long.parseLong(uri.getLastPathSegment());
+//
+// ... do something with event ID
+        }
     }
 
     @Override
