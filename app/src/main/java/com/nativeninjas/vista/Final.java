@@ -65,6 +65,7 @@ public class Final extends AppCompatActivity {
             // Si la puntuación final no es mayor, mostrar "Record no superado"
             txtRecord.setText("Record no superado");
         }
+        controlador.anadirDatosCalendario();
 
 
 
@@ -154,4 +155,5 @@ public class Final extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }
