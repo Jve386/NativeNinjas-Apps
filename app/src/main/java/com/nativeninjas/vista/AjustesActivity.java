@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.nativeninjas.MyApplication;
+import com.nativeninjas.modelo.Ajustes;
 import com.nativeninjas.prod1.R;
 
 import java.io.IOException;
@@ -19,8 +20,7 @@ import java.io.IOException;
 public class AjustesActivity extends AppCompatActivity {
     private ImageButton btnCambiarMusica;
     private ToggleButton toggleMusicaFondo;
-    private MediaPlayer mediaPlayer;
-    private boolean musicaActivada = true;
+    private Ajustes ajustes;
     private static final int PICK_AUDIO_REQUEST = 1;
 
     @Override
@@ -28,8 +28,9 @@ public class AjustesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.a_ajustes);
 
-        // Inicializa la MediaPlayer
-        mediaPlayer = MyApplication.getInstance().getMediaPlayer();
+        // Inicializa la clase Ajustes con la instancia de MyApplication
+        MyApplication myApplication = MyApplication.getInstance();
+        ajustes = new Ajustes(myApplication);
 
         // Configura los botones
         btnCambiarMusica = findViewById(R.id.btnCambiarMusica);
@@ -47,7 +48,7 @@ public class AjustesActivity extends AppCompatActivity {
         toggleMusicaFondo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                activarDesactivarMusica();
+                ajustes.activarDesactivarMusica();
             }
         });
     }
@@ -58,33 +59,12 @@ public class AjustesActivity extends AppCompatActivity {
         startActivityForResult(Intent.createChooser(intent, "Selecciona una canción"), PICK_AUDIO_REQUEST);
     }
 
-    private void activarDesactivarMusica() {
-        if (musicaActivada) {
-            mediaPlayer.pause();
-        } else {
-            mediaPlayer.start();
-        }
-        musicaActivada = !musicaActivada;
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_AUDIO_REQUEST && resultCode == RESULT_OK && data != null) {
             Uri audioUri = data.getData();
-            try {
-                mediaPlayer.reset();
-                mediaPlayer.setDataSource(getApplicationContext(), audioUri);
-                mediaPlayer.prepare();
-                mediaPlayer.start();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            ajustes.cambiarCancionFondo(audioUri);
         }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
     }
 }

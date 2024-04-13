@@ -1,8 +1,10 @@
 package com.nativeninjas.modelo;
 
 import android.media.MediaPlayer;
+import android.net.Uri;
 
 import com.nativeninjas.MyApplication;
+
 public class Ajustes {
     private MyApplication myApplication;
 
@@ -10,8 +12,16 @@ public class Ajustes {
         this.myApplication = myApplication;
     }
 
-    public void cambiarCancionFondo() {
-        // Implementa la lógica para cambiar la canción de fondo
+    public void cambiarCancionFondo(Uri audioUri) {
+        MediaPlayer mediaPlayer = myApplication.getMediaPlayer();
+        try {
+            mediaPlayer.reset();
+            mediaPlayer.setDataSource(myApplication.getApplicationContext(), audioUri);
+            mediaPlayer.prepare();
+            mediaPlayer.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void activarDesactivarMusica() {
