@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/teal_700"
+    tools:context=".Ajustes">
+
+    <TextView
+        android:id="@+id/txtTituloAjustes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="AJUSTES"
+        android:textSize="55sp"
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"/>
+
+    <ImageView
+        android:id="@+id/imagePiPaTi"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_marginTop="40dp"
+        android:layout_gravity="top"
+        android:src="@drawable/ic_ninjamain" />
+
+    <TextView
+        android:id="@+id/txtCambiarMusica"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imagePiPaTi"
+        android:layout_alignBaseline="@id/btnCambiarMusica"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
+        android:text="Elegir canción de fondo:" />
+
+    <ImageButton
+        android:id="@+id/btnCambiarMusica"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_folder"
+        android:layout_below="@id/imagePiPaTi"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp" />
+
+    <TextView
+        android:id="@+id/txtToggleMusicaFondo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Activar/Desactivar música:"
+        android:layout_below="@id/btnCambiarMusica"
+        android:layout_alignBaseline="@id/toggleMusicaFondo"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"/>
+
+    <ToggleButton
+        android:id="@+id/toggleMusicaFondo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" "
+        android:layout_below="@id/btnCambiarMusica"
+        android:layout_toEndOf="@id/txtToggleMusicaFondo"
+        android:layout_marginTop="16dp"/>
+
+
+
+</RelativeLayout>

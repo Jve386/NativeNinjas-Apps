@@ -14,7 +14,7 @@ import com.nativeninjas.MyApplication;
 import com.nativeninjas.prod1.R;
 
 public class MainActivity extends AppCompatActivity {
-    private Button btnJugar, btnSalir, btnRanking;
+    private Button btnJugar, btnSalir, btnRanking, btnAjustes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
         btnJugar = findViewById(R.id.btnJugar);
         btnSalir = findViewById(R.id.btnSalir);
         btnRanking = findViewById(R.id.btnRanking);
+        btnAjustes = findViewById(R.id.btnAjustes);
 
         btnJugar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,6 +48,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Iniciar la actividad del ranking
                 Intent intent = new Intent(MainActivity.this, Ranking.class);
+                startActivity(intent);
+            }
+        });
+
+        btnAjustes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Iniciar la actividad de ajustes
+                Intent intent = new Intent(MainActivity.this, AjustesActivity.class);
                 startActivity(intent);
             }
         });
