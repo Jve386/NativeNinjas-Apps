@@ -34,19 +34,19 @@ public class Controlador {
     //METHODS
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public void addDatos(Context context){
+    public void addDatos(Context context) {
         this.datos = new Datos(context);
 
     }
 
 
-    public void registrarUsuario(String id){
+    public void registrarUsuario(String id) {
         this.datos.registrarUsuario(id);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void guardarPartida(String nombreJugador, int puntuacionFinal, double latitude, double longitude) {
-        this.datos.addPartida(nombreJugador,puntuacionFinal, longitude,latitude);
+        this.datos.addPartida(nombreJugador, puntuacionFinal, longitude, latitude);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -58,5 +58,6 @@ public class Controlador {
     public Single<List<Partida>> obtenerRanking() {
         return datos.mostrarRanking();
     }
+}
 
 
