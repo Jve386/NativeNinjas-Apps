@@ -1,5 +1,7 @@
 package com.nativeninjas.vista;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,8 +11,10 @@ import android.view.View;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.NotificationCompat;
 
 import com.nativeninjas.MyApplication;
+import com.nativeninjas.controlador.Controlador;
 import com.nativeninjas.prod1.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -25,6 +29,27 @@ public class MainActivity extends AppCompatActivity {
         btnSalir = findViewById(R.id.btnSalir);
         btnRanking = findViewById(R.id.btnRanking);
         btnAjustes = findViewById(R.id.btnAjustes);
+        NotificationManager notificationManager = getSystemService(NotificationManager.class);
+        String channelId = "record_channel";
+        CharSequence channelName = "Record Channel";
+        int importance = NotificationManager.IMPORTANCE_DEFAULT;
+        NotificationChannel channel = new NotificationChannel(channelId, channelName, importance);
+        notificationManager.createNotificationChannel(channel);
+        // Paso 2: Detectar el nuevo récord y guardar la información
+        int nuevoRecord = getIntent().getIntExtra("puntuacionFinal", 0); // Obtener el nuevo récord
+       // int recordAnterior = controlador.obtenerRecord(); // Obtener el récord anterior
+      /*  if (nuevoRecord > recordAnterior) {
+            // Paso 3: Crear la notificación
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channelId)
+                    .setSmallIcon(R.drawable.logonativeninjas)
+                    .setContentTitle("¡Nuevo récord!")
+                    .setContentText("Has superado tu récord anterior en el juego.")
+                    .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+            // Paso 4: Mostrar la notificación
+            notificationManager.notify(1, builder.build());
+        }
+*/
 
         btnJugar.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,5 +1,7 @@
 package com.nativeninjas.vista;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -8,10 +10,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
 import com.nativeninjas.controlador.Controlador;
 import com.nativeninjas.prod1.R;
@@ -36,6 +40,12 @@ public class Final extends AppCompatActivity {
         btnSalir = findViewById(R.id.btnSalir);
         btnReintentar = findViewById(R.id.btnReintentar);
 
+        NotificationManager notificationManager = getSystemService(NotificationManager.class);
+        String channelId = "record_channel";
+        CharSequence channelName = "Record Channel";
+        int importance = NotificationManager.IMPORTANCE_DEFAULT;
+        NotificationChannel channel = new NotificationChannel(channelId, channelName, importance);
+        notificationManager.createNotificationChannel(channel);
 
         // Recuperar la puntuación final de la actividad anterior
         int puntuacionFinal = getIntent().getIntExtra("puntuacionFinal", 0);
@@ -52,6 +62,20 @@ public class Final extends AppCompatActivity {
         if (puntuacionFinal > puntuacionMasAltaEnBBDD) {
             // Si la puntuación final es mayor que la puntuación más alta en la base de datos, mostrar "Record superado"
             txtRecord.setText("Record superado");
+           // Prueba 1
+            Toast.makeText(getApplicationContext(), "Tu mensaje aquí", Toast.LENGTH_SHORT).show();
+            //Prueba 2
+
+                // Paso 3: Crear la notificación
+                NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channelId)
+                        .setSmallIcon(R.drawable.logonativeninjas)
+                        .setContentTitle("¡Nuevo récord!")
+                        .setContentText("Has superado tu récord anterior en el juego.")
+                        .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+                // Paso 4: Mostrar la notificación
+                notificationManager.notify(1, builder.build());
+
         } else {
             // Si la puntuación final no es mayor, mostrar "Record no superado"
             txtRecord.setText("Record no superado");
