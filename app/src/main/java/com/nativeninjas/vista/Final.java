@@ -1,8 +1,18 @@
 package com.nativeninjas.vista;
 
+import android.content.ContentResolver;
+import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.icu.util.TimeZone;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.CalendarContract;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,13 +26,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.nativeninjas.controlador.Controlador;
 import com.nativeninjas.prod1.R;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.util.Calendar;
+import java.util.Date;
+
 public class Final extends AppCompatActivity {
 
     private TextView txtPuntuacionFinal, txtRecord, txtPuntuacionMasAlta;
-    private Button btnMain, btnSalir, btnReintentar;
+    private Button btnMain, btnSalir, btnReintentar, btnScreenShoot;
     private Controlador controlador;
-    private String idUsuario;
-
+    // The indices for the projection array above.
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +49,7 @@ public class Final extends AppCompatActivity {
         btnMain = findViewById(R.id.btnMain);
         btnSalir = findViewById(R.id.btnSalir);
         btnReintentar = findViewById(R.id.btnReintentar);
+        btnScreenShoot= findViewById(R.id.btnScreenShoot);
 
 
         // Recuperar la puntuación final de la actividad anterior
@@ -43,9 +58,11 @@ public class Final extends AppCompatActivity {
 
 
         // Obtener la puntuación más alta de la base de datos
+
         controlador = new Controlador();
         controlador.addDatos(this);
         int puntuacionMasAltaEnBBDD = controlador.obtenerRecord();
+
         txtPuntuacionMasAlta.setText("Puntuación más alta: " + puntuacionMasAltaEnBBDD);
 
         // Comparar la puntuación final con la puntuación más alta en la base de datos
@@ -56,6 +73,7 @@ public class Final extends AppCompatActivity {
             // Si la puntuación final no es mayor, mostrar "Record no superado"
             txtRecord.setText("Record no superado");
         }
+        anadirDatosCalendario();
 
 
 
@@ -66,6 +84,39 @@ public class Final extends AppCompatActivity {
                 Intent intent = new Intent(Final.this, Jugador.class);
                 startActivity(intent);
                 finish(); // Finalizar la actividad actual
+            }
+        });
+
+        btnScreenShoot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Date now = new Date();
+                android.text.format.DateFormat.format("yyyy-MM-dd_hh:mm:ss", now);
+
+                try {
+                    // image naming and path  to include sd card  appending name you choose for file
+
+                    // create bitmap screen capture
+                    View v1 = getWindow().getDecorView().getRootView();
+                    v1.setDrawingCacheEnabled(true);
+                    Bitmap bitmap = Bitmap.createBitmap(v1.getDrawingCache());
+                    v1.setDrawingCacheEnabled(false);
+
+                    File imageFile =  File.createTempFile(now.toString(),
+                            ".jpg",
+                            getExternalFilesDir(Environment.DIRECTORY_PICTURES));
+                    imageFile.createNewFile();
+                    FileOutputStream outputStream = new FileOutputStream(imageFile);
+                    int quality = 100;
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream);
+                    outputStream.flush();
+                    outputStream.close();
+
+                } catch (Throwable e) {
+                    // Several error may come out with file handling or DOM
+                    e.printStackTrace();
+                }
+
             }
         });
 
@@ -87,6 +138,19 @@ public class Final extends AppCompatActivity {
                 finishAffinity(); // Cerrar todas las actividades de la aplicación
             }
         });
+    }
+
+    private void anadirDatosCalendario() {
+        Date now = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(now);
+        Intent intent = new Intent(Intent.ACTION_INSERT)
+                .setData(CalendarContract.Events.CONTENT_URI)
+                .putExtra(CalendarContract.Events.TITLE, "Partida PiedraPapelTijera")
+                .putExtra(CalendarContract.Events.DESCRIPTION, "partida")
+                .putExtra(CalendarContract.Events.AVAILABILITY, CalendarContract.Events.AVAILABILITY_BUSY);
+        startActivity(intent);
+
     }
 
     @Override
@@ -112,4 +176,5 @@ public class Final extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }

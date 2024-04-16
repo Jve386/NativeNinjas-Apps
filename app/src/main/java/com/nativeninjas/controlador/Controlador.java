@@ -2,8 +2,12 @@
 package com.nativeninjas.controlador;
 
 
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
+import android.net.Uri;
 import android.os.Build;
+import android.provider.CalendarContract;
 
 import androidx.annotation.RequiresApi;
 
@@ -12,6 +16,7 @@ import com.nativeninjas.modelo.Datos;
 import com.nativeninjas.modelo.Partida;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Single;
@@ -19,24 +24,29 @@ import io.reactivex.rxjava3.core.Single;
 
 public class Controlador {
     private Datos datos;
+    //CONSTRUCTOR
 
-    //METHODS
+    public Controlador() {
 
-    public void registrarUsuario(String id){
-        this.datos.registrarUsuario(id);
     }
 
 
+    //METHODS
 
-    public void addDatos(Context context){
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void addDatos(Context context) {
         this.datos = new Datos(context);
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public void guardarPartida(String nombreJugador, int puntuacionFinal) {
-        this.datos.addPartida(nombreJugador,puntuacionFinal);
 
+    public void registrarUsuario(String id) {
+        this.datos.registrarUsuario(id);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void guardarPartida(String nombreJugador, int puntuacionFinal, double latitude, double longitude) {
+        this.datos.addPartida(nombreJugador, puntuacionFinal, longitude, latitude);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -49,3 +59,5 @@ public class Controlador {
         return datos.mostrarRanking();
     }
 }
+
+
