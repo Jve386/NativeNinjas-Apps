@@ -4,6 +4,10 @@
 
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <uses-permission android:name="android.permission.ANSWER_PHONE_CALLS" />
+
 
     <application
         android:name="com.nativeninjas.MyApplication"
@@ -25,7 +29,7 @@
             android:exported="false" />
 
         <receiver
-            android:name="com.nativeninjas.vista.CallReceiver"
+            android:name="com.nativeninjas.services.call.CallReceiver"
             android:enabled="true"
             android:exported="true"/>
 
