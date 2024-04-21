@@ -121,7 +121,7 @@ public class Partida extends AppCompatActivity {
         btnPapel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                jugar("Piedra");
+                jugar("Papel");
                 // Cambiar la imagen del ImageView a ic_piedra_red
                 imgPapel.setImageResource(R.drawable.ic_papel_red);
 
@@ -139,7 +139,7 @@ public class Partida extends AppCompatActivity {
         btnTijera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                jugar("Piedra");
+                jugar("Tijera");
                 // Cambiar la imagen del ImageView a ic_piedra_red
                 imgTijera.setImageResource(R.drawable.ic_tijera_red);
 
