@@ -19,6 +19,7 @@ import androidx.core.app.NotificationCompat;
 
 import com.nativeninjas.controlador.Controlador;
 import com.nativeninjas.prod1.R;
+import com.nativeninjas.services.Notificaciones;
 
 public class Final extends AppCompatActivity {
 
@@ -39,6 +40,8 @@ public class Final extends AppCompatActivity {
         btnMain = findViewById(R.id.btnMain);
         btnSalir = findViewById(R.id.btnSalir);
         btnReintentar = findViewById(R.id.btnReintentar);
+        Notificaciones notificaciones = new Notificaciones(this); // Reemplaza "context" con el contexto adecuado, como por ejemplo "this" si estás dentro de una actividad
+
 
         NotificationManager notificationManager = getSystemService(NotificationManager.class);
         String channelId = "record_channel";
@@ -75,6 +78,7 @@ public class Final extends AppCompatActivity {
 
                 // Paso 4: Mostrar la notificación
                 notificationManager.notify(1, builder.build());
+                notificaciones.showNotification("Record superado!");
 
         } else {
             // Si la puntuación final no es mayor, mostrar "Record no superado"
