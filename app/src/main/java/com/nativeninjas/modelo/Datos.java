@@ -47,9 +47,9 @@ public class Datos {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public void addPartida(String usuarioId, int monedas){
-        Partida partida = new Partida(monedas, usuarioId);
-         this.partidaDAO.insertar(partida);
+    public void addPartida(String usuarioId, int monedas, double longitud, double latitud){
+        Partida partida = new Partida(monedas, usuarioId, longitud, latitud);
+        this.partidaDAO.insertar(partida);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)

@@ -34,8 +34,8 @@ public class Controlador {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public void guardarPartida(String nombreJugador, int puntuacionFinal) {
-        this.datos.addPartida(nombreJugador,puntuacionFinal);
+    public void guardarPartida(String nombreJugador, int puntuacionFinal, double latitude, double longitude) {
+        this.datos.addPartida(nombreJugador,puntuacionFinal, longitude, latitude);
 
     }
 
@@ -43,7 +43,6 @@ public class Controlador {
     public int obtenerRecord() {
         return this.datos.obtenerRecord(); // Llama al método en la capa de datos correspondiente sin pasar ningún argumento
     }
-
     @RequiresApi(api = Build.VERSION_CODES.O)
     public Single<List<Partida>> obtenerRanking() {
         return datos.mostrarRanking();

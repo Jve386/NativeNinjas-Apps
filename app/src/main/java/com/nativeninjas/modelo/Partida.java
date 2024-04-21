@@ -19,16 +19,35 @@ public class Partida {
     private String usuarioId;
 
     private final DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    private double latitud;
+    private double longitud;
 
     //BUILDER
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public Partida(int monedas, String usuarioId) {
+    public Partida(int monedas, String usuarioId, double latitud, double longitud) {
         this.monedas = monedas;
         this.fecha = LocalDateTime.now();
         this.usuarioId = usuarioId;
+        this.latitud =  latitud;
+        this.longitud = longitud;
     }
 
     //GETTERS & SETTERS
+    public double getLatitud() {
+        return latitud;
+    }
+
+    public void setLatitud(double latitud) {
+        this.latitud = latitud;
+    }
+
+    public double getLongitud() {
+        return longitud;
+    }
+
+    public void setLongitud(double longitud) {
+        this.longitud = longitud;
+    }
     public int getId() {
         return id;
     }

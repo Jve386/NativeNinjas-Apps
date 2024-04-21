@@ -13,7 +13,7 @@ import java.util.List;
 public interface DAO <T, K> {
 
     static final String DATABASE_NAME = "PiedraPapelTijeras.db";
-    static final int DATABASE_VERSION = 1;
+    static final int DATABASE_VERSION = 3;
 
     /**
      * Inserta un objeto en la capa de persistencia.

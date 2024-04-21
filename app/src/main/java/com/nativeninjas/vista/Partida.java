@@ -5,7 +5,9 @@ import java.util.Date;
 import java.util.Random;
 
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,6 +24,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
@@ -32,12 +36,20 @@ import android.media.MediaPlayer;
 
 import com.nativeninjas.controlador.Controlador;
 
+import androidx.core.app.ActivityCompat;
+
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
+
 import com.nativeninjas.prod1.R;
 
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 
 public class Partida extends AppCompatActivity {
+    private FusedLocationProviderClient fusedLocationClient;
     private Button btnPiedra, btnPapel, btnTijera;
     private String nombreJugador;
     private TextView txtResultado, txtContador, txtIntentos;
@@ -54,12 +66,57 @@ public class Partida extends AppCompatActivity {
     private ImageView imgTijera;
     private ImageView imgPapel;
     private ImageView imgAnonimo;
-
+    private double latitude;
+    private double longitude;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActivityResultLauncher<String[]> locationPermissionRequest =
+                registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(),
+                        result -> {
+                            Boolean fineLocationGranted = result.getOrDefault(
+                                    Manifest.permission.ACCESS_FINE_LOCATION, false);
+                            Boolean coarseLocationGranted = result.getOrDefault(
+                                    Manifest.permission.ACCESS_COARSE_LOCATION, false);
+                            if (fineLocationGranted != null && fineLocationGranted) {
+                                // Precise location access granted.
+                            } else if (coarseLocationGranted != null && coarseLocationGranted) {
+                                // Only approximate location access granted.
+                            } else {
+                                // No location access granted.
+                            }
+                        }
+                );
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            locationPermissionRequest.launch(new String[]{
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+            });
+        }
+
+        fusedLocationClient.getLastLocation().addOnSuccessListener(this, location -> {
+
+            // Got last known location. In some rare situations this can be null.
+            if (location != null) {
+                // Logic to handle location object
+                latitude = location.getLatitude();
+                longitude = location.getLongitude();
+            }
+
+
+        });
+
         setContentView(R.layout.partida_activity);
 
         // Obtener el ActionBar
@@ -218,7 +275,7 @@ public class Partida extends AppCompatActivity {
         String nombreJugador = getIntent().getStringExtra("nombreJugador");
         Log.d("Fecha", "Fecha actual: " + new Date().toString());
         // Insertar la puntuación final y el nombre del jugador en la base de datos
-        controlador.guardarPartida(nombreJugador, puntuacionFinal);
+        controlador.guardarPartida(nombreJugador, puntuacionFinal, longitude, latitude);
         /** if (id != -1) {
          Toast.makeText(this, "Puntuación guardada en la base de datos.", Toast.LENGTH_SHORT).show();
          } else {
