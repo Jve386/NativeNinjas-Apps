@@ -9,9 +9,9 @@
     <ImageView
         android:id="@+id/imagePiPaTi"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:layout_centerHorizontal="true"
+        android:layout_height="300dp"
         android:layout_marginTop="40dp"
+        android:layout_gravity="top"
         android:src="@drawable/ic_ninjamain" />
 
     <Button
@@ -41,11 +41,23 @@
         android:id="@+id/btnSalir"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/btnRanking"
+        android:layout_below="@id/btnAjustes"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:background="#0000ff"
         android:text="Salir"
+        android:textSize="30dp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btnAjustes"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnRanking"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="#0000ff"
+        android:text="Ajustes"
         android:textSize="30dp"
         android:textStyle="bold" />
 

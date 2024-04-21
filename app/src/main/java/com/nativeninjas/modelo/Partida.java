@@ -19,10 +19,8 @@ public class Partida {
     private String usuarioId;
 
     private final DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
     private double latitud;
     private double longitud;
-
 
     //BUILDER
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -35,8 +33,6 @@ public class Partida {
     }
 
     //GETTERS & SETTERS
-
-
     public double getLatitud() {
         return latitud;
     }
@@ -52,7 +48,6 @@ public class Partida {
     public void setLongitud(double longitud) {
         this.longitud = longitud;
     }
-
     public int getId() {
         return id;
     }

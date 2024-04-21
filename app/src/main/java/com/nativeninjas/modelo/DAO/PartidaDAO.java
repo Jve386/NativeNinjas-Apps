@@ -154,12 +154,12 @@ public class PartidaDAO extends SQLiteOpenHelper implements DAO<Partida, String>
                 " = aux.max_monedas " +
                 " ORDER BY "+COLUMN_MONEDAS+" DESC, "+ COLUMN_FECHA + " ASC";
         /**
-        String selectQuery = "SELECT * FROM ( SELECT " + COLUMN_ID + ", " +
-                COLUMN_USUARIO + ", "+  COLUMN_MONEDAS + ", " + COLUMN_FECHA +
-                " , ROW_NUMBER () OVER (PARTITION BY "+ COLUMN_USUARIO +" ORDER BY "+ COLUMN_MONEDAS + " DESC) RowNum" +
-                " FROM " + TABLE_PARTIDA +
-                " ) t"+
-                " WHERE RowNum=1 ORDER BY "+COLUMN_MONEDAS+" DESC";
+         String selectQuery = "SELECT * FROM ( SELECT " + COLUMN_ID + ", " +
+         COLUMN_USUARIO + ", "+  COLUMN_MONEDAS + ", " + COLUMN_FECHA +
+         " , ROW_NUMBER () OVER (PARTITION BY "+ COLUMN_USUARIO +" ORDER BY "+ COLUMN_MONEDAS + " DESC) RowNum" +
+         " FROM " + TABLE_PARTIDA +
+         " ) t"+
+         " WHERE RowNum=1 ORDER BY "+COLUMN_MONEDAS+" DESC";
          **/
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = db.rawQuery(selectQuery, null);

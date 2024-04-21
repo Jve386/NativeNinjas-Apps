@@ -49,7 +49,7 @@ public class Datos {
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void addPartida(String usuarioId, int monedas, double longitud, double latitud){
         Partida partida = new Partida(monedas, usuarioId, longitud, latitud);
-         this.partidaDAO.insertar(partida);
+        this.partidaDAO.insertar(partida);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)

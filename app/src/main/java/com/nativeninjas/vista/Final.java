@@ -57,13 +57,14 @@ public class Final extends AppCompatActivity {
         txtPuntuacionFinal.setText("Puntuación Final: " + puntuacionFinal);
 
 
+
         // Obtener la puntuación más alta de la base de datos
 
         controlador = new Controlador();
         controlador.addDatos(this);
-        int puntuacionMasAltaEnBBDD = controlador.obtenerRecord();
+        // Obtener la puntuación más alta de la base de datos desde el intent
+        int puntuacionMasAltaEnBBDD = getIntent().getIntExtra("puntuacionMasAltaEnBBDD", 0);
 
-        txtPuntuacionMasAlta.setText("Puntuación más alta: " + puntuacionMasAltaEnBBDD);
 
         // Comparar la puntuación final con la puntuación más alta en la base de datos
         if (puntuacionFinal > puntuacionMasAltaEnBBDD) {
@@ -73,6 +74,9 @@ public class Final extends AppCompatActivity {
             // Si la puntuación final no es mayor, mostrar "Record no superado"
             txtRecord.setText("Record no superado");
         }
+
+        txtPuntuacionMasAlta.setText("Puntuación más alta: " + puntuacionMasAltaEnBBDD);
+
         anadirDatosCalendario();
 
 
