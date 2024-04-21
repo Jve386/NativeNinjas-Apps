@@ -6,6 +6,7 @@ import java.util.Random;
 
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,10 +15,14 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -45,6 +50,12 @@ public class Partida extends AppCompatActivity {
     private Controlador controlador; // Agregar una instancia de Controlador
     private MediaPlayer mpGanar, mpPerder, mpEmpate; // Agregar reproductores de audio
     private boolean juegoEnProgreso = false; // handler
+    private ImageView imgPiedra;
+    private ImageView imgTijera;
+    private ImageView imgPapel;
+    private ImageView imgAnonimo;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +76,11 @@ public class Partida extends AppCompatActivity {
         txtResultado = findViewById(R.id.txtResultado);
         txtContador = findViewById(R.id.txtContador);
         txtIntentos = findViewById(R.id.txtIntentos);
+        imgPiedra = findViewById(R.id.imgPiedra);
+        imgPapel = findViewById(R.id.imgPapel);
+        imgTijera = findViewById(R.id.imgTijera);
+        imgAnonimo = findViewById(R.id.imgAnonimo);
+
 
         actualizarIntentos();
 
@@ -88,6 +104,17 @@ public class Partida extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 jugar("Piedra");
+                // Cambiar la imagen del ImageView a ic_piedra_red
+                imgPiedra.setImageResource(R.drawable.ic_piedra_red);
+
+                // Programar un retraso de 1 segundo antes de cambiar la imagen de nuevo
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        // Cambiar la imagen de nuevo a ic_piedra después de 1 segundo
+                        imgPiedra.setImageResource(R.drawable.ic_piedra);
+                    }
+                }, 1000); // 1000 milisegundos = 1 segundo
             }
         });
 
@@ -95,6 +122,17 @@ public class Partida extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 jugar("Papel");
+                // Cambiar la imagen del ImageView a ic_piedra_red
+                imgPapel.setImageResource(R.drawable.ic_papel_red);
+
+                // Programar un retraso de 1 segundo antes de cambiar la imagen de nuevo
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        // Cambiar la imagen de nuevo a ic_piedra después de 1 segundo
+                        imgPapel.setImageResource(R.drawable.ic_papel);
+                    }
+                }, 1000); // 1000 milisegundos = 1 segundo
             }
         });
 
@@ -102,6 +140,17 @@ public class Partida extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 jugar("Tijera");
+                // Cambiar la imagen del ImageView a ic_piedra_red
+                imgTijera.setImageResource(R.drawable.ic_tijera_red);
+
+                // Programar un retraso de 1 segundo antes de cambiar la imagen de nuevo
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        // Cambiar la imagen de nuevo a ic_piedra después de 1 segundo
+                        imgTijera.setImageResource(R.drawable.ic_tijera);
+                    }
+                }, 1000); // 1000 milisegundos = 1 segundo
             }
         });
 
@@ -138,6 +187,7 @@ public class Partida extends AppCompatActivity {
             txtResultado.setText("¡Ganaste!\n" + movimientoComputadoraTexto);
             contadorMonedas++;
             mpGanar.start(); // Reproducir el sonido de ganar
+            aplicarAnimacionGanar(); // Aplicar la animación de ganar
         } else {
             txtResultado.setText("¡Perdiste!\n" + movimientoComputadoraTexto);
             intentos--;
@@ -220,4 +270,32 @@ public class Partida extends AppCompatActivity {
         }
     }
 
+    // Método para aplicar la animación de ganar
+    private void aplicarAnimacionGanar() {
+        // Cargar las animaciones desde los archivos XML
+        Animation animacionExpand = AnimationUtils.loadAnimation(this, R.anim.animacion_expand);
+        Animation animacionReduce = AnimationUtils.loadAnimation(this, R.anim.animacion_reduce);
+
+        // Establecer un oyente de animación para la animación de expansión
+        animacionExpand.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                // No es necesario hacer nada en el inicio de la animación
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                // Restaurar la imagen original después de que termine la animación
+                imgAnonimo.startAnimation(animacionReduce);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+                // No es necesario hacer nada en la repetición de la animación
+            }
+        });
+
+        // Aplicar la animación de expansión al ImageView
+        imgAnonimo.startAnimation(animacionExpand);
+    }
 }
