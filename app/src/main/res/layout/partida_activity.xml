@@ -155,9 +155,12 @@
         android:layout_height="150dp"
         android:layout_alignParentTop="true"
         android:layout_centerVertical="true"
+        android:layout_marginTop="4dp"
         android:contentDescription="@null"
         android:src="@drawable/ic_anonimo"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/txtRival"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="0dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

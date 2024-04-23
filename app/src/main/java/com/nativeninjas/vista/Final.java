@@ -1,56 +1,28 @@
 package com.nativeninjas.vista;
 
-import android.content.ContentResolver;
-import android.content.ContentUris;
-import android.content.ContentValues;
 import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.icu.util.TimeZone;
-import android.media.MediaScannerConnection;
-
-import android.Manifest;
-import android.content.pm.PackageManager;
-import android.os.Environment;
-import androidx.core.app.ActivityCompat;
-
-
-
-
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.CalendarContract;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 import com.nativeninjas.controlador.Controlador;
 import com.nativeninjas.prod1.R;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Calendar;
-import java.util.Date;
-
 public class Final extends AppCompatActivity {
 
     private TextView txtPuntuacionFinal, txtRecord, txtPuntuacionMasAlta;
-    private Button btnMain, btnSalir, btnReintentar, btnScreenShoot;
+    private Button btnMain, btnSalir, btnReintentar;
     private Controlador controlador;
-    private static final int REQUEST_CODE_WRITE_EXTERNAL_STORAGE = 1;
-    // The indices for the projection array above.
+    private String idUsuario;
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +35,6 @@ public class Final extends AppCompatActivity {
         btnMain = findViewById(R.id.btnMain);
         btnSalir = findViewById(R.id.btnSalir);
         btnReintentar = findViewById(R.id.btnReintentar);
-        btnScreenShoot= findViewById(R.id.btnScreenShoot);
 
 
         // Recuperar la puntuación final de la actividad anterior
@@ -71,14 +42,11 @@ public class Final extends AppCompatActivity {
         txtPuntuacionFinal.setText("Puntuación Final: " + puntuacionFinal);
 
 
-
         // Obtener la puntuación más alta de la base de datos
-
         controlador = new Controlador();
         controlador.addDatos(this);
-        // Obtener la puntuación más alta de la base de datos desde el intent
-        int puntuacionMasAltaEnBBDD = getIntent().getIntExtra("puntuacionMasAltaEnBBDD", 0);
-
+        int puntuacionMasAltaEnBBDD = controlador.obtenerRecord();
+        txtPuntuacionMasAlta.setText("Puntuación más alta: " + puntuacionMasAltaEnBBDD);
 
         // Comparar la puntuación final con la puntuación más alta en la base de datos
         if (puntuacionFinal > puntuacionMasAltaEnBBDD) {
@@ -88,10 +56,6 @@ public class Final extends AppCompatActivity {
             // Si la puntuación final no es mayor, mostrar "Record no superado"
             txtRecord.setText("Record no superado");
         }
-
-        txtPuntuacionMasAlta.setText("Puntuación más alta: " + puntuacionMasAltaEnBBDD);
-
-        anadirDatosCalendario();
 
 
 
@@ -104,59 +68,6 @@ public class Final extends AppCompatActivity {
                 finish(); // Finalizar la actividad actual
             }
         });
-
-        btnScreenShoot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Verificar si el permiso WRITE_EXTERNAL_STORAGE está concedido
-                if (ContextCompat.checkSelfPermission(Final.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    // Si el permiso no está concedido, solicitarlo al usuario
-                    ActivityCompat.requestPermissions(Final.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CODE_WRITE_EXTERNAL_STORAGE);
-                } else {
-                    // Si el permiso ya está concedido, ejecutar la lógica para capturar la pantalla
-
-                    // Crear un objeto Date para obtener una marca de tiempo única
-                    Date now = new Date();
-                    android.text.format.DateFormat.format("yyyy-MM-dd_hh:mm:ss", now);
-
-                    try {
-                        // Habilitar el caché de la vista raíz para permitir la captura de pantalla
-                        View rootView = getWindow().getDecorView().getRootView();
-                        rootView.setDrawingCacheEnabled(true);
-
-                        // Capturar la vista raíz como un Bitmap
-                        Bitmap bitmap = Bitmap.createBitmap(rootView.getDrawingCache());
-
-                        // Deshabilitar el caché de la vista raíz después de la captura de pantalla
-                        rootView.setDrawingCacheEnabled(false);
-
-                        // Crear un archivo temporal para guardar la captura de pantalla con el nombre "NativeNinjasScreenshot.jpg"
-                        File imageFile =  File.createTempFile("NativeNinjasScreenshot", ".jpg", Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES));
-
-                        // Crear un flujo de salida para escribir en el archivo
-                        FileOutputStream outputStream = new FileOutputStream(imageFile);
-
-                        // Comprimir el bitmap en formato JPEG y escribirlo en el archivo
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
-
-                        // Vaciar y cerrar el flujo de salida
-                        outputStream.flush();
-                        outputStream.close();
-
-                        // Escanear el archivo para que aparezca en la galería de medios
-                        MediaScannerConnection.scanFile(getApplicationContext(), new String[]{imageFile.getAbsolutePath()}, null, null);
-
-                        // Mostrar un mensaje de éxito
-                        Toast.makeText(getApplicationContext(), "Captura de pantalla guardada en la galería", Toast.LENGTH_SHORT).show();
-                    } catch (IOException e) {
-                        // Manejar cualquier excepción de E/S
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
-
-
 
 
         // Configurar el onClickListener para el botón "Volver al Menú"
@@ -176,19 +87,6 @@ public class Final extends AppCompatActivity {
                 finishAffinity(); // Cerrar todas las actividades de la aplicación
             }
         });
-    }
-
-    private void anadirDatosCalendario() {
-        Date now = new Date();
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(now);
-        Intent intent = new Intent(Intent.ACTION_INSERT)
-                .setData(CalendarContract.Events.CONTENT_URI)
-                .putExtra(CalendarContract.Events.TITLE, "Partida PiedraPapelTijera")
-                .putExtra(CalendarContract.Events.DESCRIPTION, "partida")
-                .putExtra(CalendarContract.Events.AVAILABILITY, CalendarContract.Events.AVAILABILITY_BUSY);
-        startActivity(intent);
-
     }
 
     @Override
@@ -214,5 +112,4 @@ public class Final extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
 }
