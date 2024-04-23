@@ -38,7 +38,7 @@
             android:name="com.nativeninjas.vista.Splash"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN" />git
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
