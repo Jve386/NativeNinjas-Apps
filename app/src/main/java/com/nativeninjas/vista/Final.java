@@ -93,9 +93,6 @@ public class Final extends AppCompatActivity {
         if (puntuacionFinal > puntuacionMasAltaEnBBDD) {
             // Si la puntuación final es mayor que la puntuación más alta en la base de datos, mostrar "Record superado"
             txtRecord.setText("Record superado");
-        } else {
-            // Si la puntuación final no es mayor, mostrar "Record no superado"
-            txtRecord.setText("Record no superado");
             // Prueba 1
             Toast.makeText(getApplicationContext(), "Record Superado", Toast.LENGTH_SHORT).show();
             //Prueba 2
@@ -103,13 +100,17 @@ public class Final extends AppCompatActivity {
             // Paso 3: Crear la notificación
             NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channelId)
                     .setSmallIcon(R.drawable.logonativeninjas)
-                    .setContentTitle("¡Nuevo récord!")
+                    .setContentTitle("¡Nuevo récord personal!")
                     .setContentText("Has superado tu récord anterior en el juego.")
                     .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
             // Paso 4: Mostrar la notificación
             notificationManager.notify(1, builder.build());
-            notificaciones.showNotification("Record superado!");
+            notificaciones.showNotification("Record superado, ole tus huevos!");
+        } else {
+            // Si la puntuación final no es mayor, mostrar "Record no superado"
+            txtRecord.setText("Record no superado");
+
         }
 
         txtPuntuacionMasAlta.setText("Puntuación más alta: " + puntuacionMasAltaEnBBDD);
