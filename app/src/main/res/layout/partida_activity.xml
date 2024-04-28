@@ -142,7 +142,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
         android:gravity="center_horizontal"
-        android:text="Rival Anónimo"
+        android:text="@string/text1_partida"
         android:textSize="36sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -1,7 +1,9 @@
 package com.nativeninjas.vista;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,6 +15,8 @@ import androidx.appcompat.app.AlertDialog;
 import com.nativeninjas.MyApplication;
 import com.nativeninjas.prod1.R;
 
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity {
     private Button btnJugar, btnSalir, btnRanking, btnAjustes;
 
@@ -20,6 +24,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Configuration config = getResources().getConfiguration();
+        Locale locale = config.locale;
+        String codigo = locale.getLanguage();
+
+        if (codigo.equals("es")) getSupportActionBar().setTitle("Piedra, papel y tijera");
+        else if (codigo.equals("en")) getSupportActionBar().setTitle("Rock, paper and scissors");
+        else if (codigo.equals("ca")) getSupportActionBar().setTitle("Pedra, paper i tisora");
 
         btnJugar = findViewById(R.id.btnJugar);
         btnSalir = findViewById(R.id.btnSalir);
@@ -110,4 +122,5 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         MyApplication.getInstance().getMediaPlayer().stop();
     }
+
 }

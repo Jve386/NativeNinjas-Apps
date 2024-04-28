@@ -42,7 +42,7 @@
         android:id="@+id/btnReintentar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Reintentar"
+        android:text="@string/btn1_final"
         android:layout_below="@id/txtRecord"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp" />
@@ -51,7 +51,7 @@
         android:id="@+id/btnMain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Volver al Menú"
+        android:text="@string/btn2_final"
         android:layout_below="@id/btnReintentar"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp" />
@@ -60,7 +60,7 @@
         android:id="@+id/btnSalir"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Salir"
+        android:text="@string/btn3_final"
         android:layout_below="@id/btnMain"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp" />
@@ -69,6 +69,6 @@
         android:id="@+id/btnScreenShoot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Capturar pantalla" />
+        android:text="@string/btn4_final" />
 
 </RelativeLayout>

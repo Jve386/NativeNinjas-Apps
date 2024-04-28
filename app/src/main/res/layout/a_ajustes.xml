@@ -10,7 +10,7 @@
         android:id="@+id/txtTituloAjustes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="AJUSTES"
+        android:text="@string/text1_ajustes"
         android:textSize="55sp"
         android:textStyle="bold"
         android:layout_alignParentTop="true"
@@ -32,8 +32,8 @@
         android:layout_below="@id/imagePiPaTi"
         android:layout_alignBaseline="@id/btnCambiarMusica"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="28dp"
-        android:text="Elegir canción de fondo:" />
+        android:layout_marginTop="10dp"
+        android:text="@string/text2_ajustes" />
 
     <ImageButton
         android:id="@+id/btnCambiarMusica"
@@ -42,17 +42,17 @@
         android:src="@drawable/ic_folder"
         android:layout_below="@id/imagePiPaTi"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="10dp" />
 
     <TextView
         android:id="@+id/txtToggleMusicaFondo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Activar/Desactivar música:"
+        android:text="@string/text3_ajustes"
         android:layout_below="@id/btnCambiarMusica"
         android:layout_alignBaseline="@id/toggleMusicaFondo"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="10dp"/>
 
     <ToggleButton
         android:id="@+id/toggleMusicaFondo"
@@ -61,8 +61,39 @@
         android:text=" "
         android:layout_below="@id/btnCambiarMusica"
         android:layout_toEndOf="@id/txtToggleMusicaFondo"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="10dp"/>
 
-
+    <TextView
+        android:id="@+id/elegirIdioma"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/spinner_options"
+        android:text="@string/text4_ajustes"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"/>
+    <Spinner
+        android:id="@+id/spinner_options"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/toggleMusicaFondo"
+        android:layout_marginTop="10dp"/>
+    <Button
+        android:id="@+id/btnAyuda"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/spinner_options"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="@string/text6_ajustes">
+    </Button>
+    <Button
+        android:id="@+id/btnAtras"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnAyuda"
+        android:layout_centerHorizontal="true"
+        android:text="@string/text5_ajustes">
+    </Button>
 
 </RelativeLayout>

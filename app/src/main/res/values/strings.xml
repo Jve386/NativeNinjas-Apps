@@ -1,3 +1,32 @@
 <resources>
     <string name="app_name">Piedrapapeltijeras</string>
+
+    <string name="text1_splash">APP Producto 1</string>
+    <string name="text2_splash">Desarrollado por NativeNinjas</string>
+
+    <string name="btn1_main">Comenzar</string>
+    <string name="btn2_main">Ranking</string>
+    <string name="btn3_main">Ajustes</string>
+    <string name="btn4_main">Salir</string>
+
+    <string name="btn_ranking">Volver</string>
+
+    <string name="text1_jugador">Piedra, papel o tijera</string>
+    <string name="field1_jugador">Ingrese su nombre:</string>
+    <string name="btn1_jugador">Jugar</string>
+    <string name="btn2_jugador">Salir</string>
+
+    <string name="text1_partida">Rival Anónimo</string>
+
+    <string name="text1_ajustes">AJUSTES</string>
+    <string name="text2_ajustes">Elegir canción de fondo:</string>
+    <string name="text3_ajustes">Activar/Desactivar música:</string>
+    <string name="text4_ajustes">Elige un idioma:</string>
+    <string name="text5_ajustes">Atrás</string>
+    <string name="text6_ajustes">Ayuda</string>
+
+    <string name="btn1_final">Reintentar</string>
+    <string name="btn2_final">Volver al menú</string>
+    <string name="btn3_final">Salir</string>
+    <string name="btn4_final">Capturar pantalla</string>
 </resources>

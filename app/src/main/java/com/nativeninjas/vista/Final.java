@@ -6,6 +6,7 @@ import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.icu.util.TimeZone;
@@ -47,6 +48,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class Final extends AppCompatActivity {
 
@@ -60,6 +62,14 @@ public class Final extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_final);
+
+        Configuration config = getResources().getConfiguration();
+        Locale locale = config.locale;
+        String codigo = locale.getLanguage();
+
+        if (codigo.equals("es")) getSupportActionBar().setTitle("Piedra, papel y tijera");
+        else if (codigo.equals("en")) getSupportActionBar().setTitle("Rock, paper and scissors");
+        else if (codigo.equals("ca")) getSupportActionBar().setTitle("Pedra, paper i tisora");
 
         txtPuntuacionMasAlta = findViewById(R.id.txtPuntuacionMasAlta);
         txtPuntuacionFinal = findViewById(R.id.txtPuntuacionFinal);

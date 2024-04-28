@@ -23,7 +23,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginBottom="16dp"
         android:background="#0000ff"
-        android:text="COMENZAR"
+        android:text="@string/btn1_main"
         android:textSize="30dp"
         android:textStyle="bold" />
     <Button
@@ -33,7 +33,7 @@
         android:layout_below="@id/btnJugar"
         android:layout_centerHorizontal="true"
         android:background="#0000ff"
-        android:text="Ranking"
+        android:text="@string/btn2_main"
         android:textSize="30dp"
         android:textStyle="bold" />
 
@@ -45,7 +45,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:background="#0000ff"
-        android:text="Salir"
+        android:text="@string/btn4_main"
         android:textSize="30dp"
         android:textStyle="bold" />
 
@@ -57,7 +57,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:background="#0000ff"
-        android:text="Ajustes"
+        android:text="@string/btn3_main"
         android:textSize="30dp"
         android:textStyle="bold" />
 

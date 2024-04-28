@@ -19,6 +19,6 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:layout_marginBottom="40dp"
-        android:text="VOLVER" />
+        android:text="@string/btn_ranking" />
 
 </RelativeLayout>

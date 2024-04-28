@@ -2,6 +2,7 @@ package com.nativeninjas.vista;
 
 
 import java.util.Date;
+import java.util.Locale;
 import java.util.Random;
 
 
@@ -9,6 +10,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -73,6 +75,7 @@ public class Partida extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         ActivityResultLauncher<String[]> locationPermissionRequest =
                 registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(),
                         result -> {
