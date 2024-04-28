@@ -2,6 +2,7 @@ package com.nativeninjas.vista;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,6 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.nativeninjas.prod1.R;
 
+import java.util.Locale;
+
 public class Jugador extends AppCompatActivity {
 
     private EditText editTextNombre;
@@ -23,6 +26,14 @@ public class Jugador extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jugador);
+
+        Configuration config = getResources().getConfiguration();
+        Locale locale = config.locale;
+        String codigo = locale.getLanguage();
+
+        if (codigo.equals("es")) getSupportActionBar().setTitle("Piedra, papel y tijera");
+        else if (codigo.equals("en")) getSupportActionBar().setTitle("Rock, paper and scissors");
+        else if (codigo.equals("ca")) getSupportActionBar().setTitle("Pedra, paper i tisora");
 
         editTextNombre = findViewById(R.id.editTextNombre);
         btnConfirmar = findViewById(R.id.btnConfirmar);

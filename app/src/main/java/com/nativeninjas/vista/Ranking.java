@@ -4,6 +4,7 @@ import com.nativeninjas.prod1.R;
 import com.nativeninjas.modelo.Partida;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -27,6 +28,7 @@ import com.nativeninjas.controlador.Controlador;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Single;
@@ -50,6 +52,14 @@ public class Ranking extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ranking);
+
+        Configuration config = getResources().getConfiguration();
+        Locale locale = config.locale;
+        String codigo = locale.getLanguage();
+
+        if (codigo.equals("es")) getSupportActionBar().setTitle("Piedra, papel y tijera");
+        else if (codigo.equals("en")) getSupportActionBar().setTitle("Rock, paper and scissors");
+        else if (codigo.equals("ca")) getSupportActionBar().setTitle("Pedra, paper i tisora");
 
         btnVolver = findViewById(R.id.btnVolver);
         listViewRanking = findViewById(R.id.listViewRanking);

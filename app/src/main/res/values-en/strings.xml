@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">RockPaperScissors</string>
+
+    <string name="text1_splash">APP Product 1</string>
+    <string name="text2_splash">Powered by NativeNinjas</string>
+
+    <string name="btn1_main">Start</string>
+    <string name="btn2_main">Ranking</string>
+    <string name="btn3_main">Settings</string>
+    <string name="btn4_main">Exit</string>
+
+    <string name="btn_ranking">Back</string>
+
+    <string name="text1_jugador">Rock, paper or scissors</string>
+    <string name="field1_jugador">Enter your name:</string>
+    <string name="btn1_jugador">Play</string>
+    <string name="btn2_jugador">Exit</string>
+
+    <string name="text1_partida">Anonymous enemy</string>
+
+    <string name="text1_ajustes">SETTINGS</string>
+    <string name="text2_ajustes">Choose background song:</string>
+    <string name="text3_ajustes">Turn music on/off:</string>
+    <string name="text4_ajustes">Choose a language:</string>
+    <string name="text5_ajustes">Back</string>
+    <string name="text6_ajustes">Help</string>
+
+    <string name="btn1_final">Retry</string>
+    <string name="btn2_final">Back to menu</string>
+    <string name="btn3_final">Exit</string>
+    <string name="btn4_final">Screenshot</string>
+</resources>

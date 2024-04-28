@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Pedrapapertisores</string>
+
+    <string name="text1_splash">APP Producte 1</string>
+    <string name="text2_splash">Desenvolupat per NativeNinjas</string>
+
+    <string name="btn1_main">Començar</string>
+    <string name="btn2_main">Rànquing</string>
+    <string name="btn3_main">Ajustos</string>
+    <string name="btn4_main">Sortir</string>
+
+    <string name="btn_ranking">Tornar</string>
+
+    <string name="text1_jugador">Pedra, paper o tisores</string>
+    <string name="field1_jugador">Ingressi el seu nom:</string>
+    <string name="btn1_jugador">Jugar</string>
+    <string name="btn2_jugador">Sortir</string>
+
+    <string name="text1_partida">Rival Anònim</string>
+
+    <string name="text1_ajustes">AJUSTOS</string>
+    <string name="text2_ajustes">Triar cançó de fons:</string>
+    <string name="text3_ajustes">Activar/Desactivar música:</string>
+    <string name="text4_ajustes">Tria un idioma:</string>
+    <string name="text5_ajustes">Enrere</string>
+    <string name="text6_ajustes">Ajuda</string>
+
+    <string name="btn1_final">Reintentar</string>
+    <string name="btn2_final">Tornar al menú</string>
+    <string name="btn3_final">Sortir</string>
+    <string name="btn4_final">Capturar pantalla</string>
+</resources>
