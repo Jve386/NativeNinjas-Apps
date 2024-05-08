@@ -62,3 +62,16 @@ This approach ensures that database query operations are performed efficiently a
 - Utilization of Static Resources: Static resources have been used to store game images, improving application efficiency and loading.
 - SQLite Database: The application utilizes an SQLite database to store game history and player's coin amount efficiently and securely.
 - Retrieving Scores: Scores stored in the SQLite database are retrieved to display the highest scores on the application's home screen.
+
+
+## 🗡️ Additional Features Added (Product 2):
+- Background Music: Implemented background music with the ability to toggle it on or off. Users can select background music from device media resources or use the official game melody.
+- Multimedia Best Practices: Implemented proper multimedia programming practices, including handling events such as incoming calls or alarm sounds.
+- Animations and Sounds: Applied animations and sounds to the movements of game pieces.
+- Gallery Access: Enabled access to the device's image gallery to store screenshots of victories.
+- Victory Storage in Calendar: Stored victories in the device's calendar, noting the date and time of each victory.
+- Help Section with WebView: Added a help section accessible through a WebView, providing information about the game.
+- Location Storage: Optimally retrieved and stored player location in the database.
+- Notification on Victory: Displayed a basic notification upon winning, featuring the app's icon, and showing the resolution time upon tapping.
+- Multilingual Support: Automatically detects and uses the player's device language, with manual language selection available within the app.
+- Concurrent Programming: Implemented concurrent programming techniques using Android services to enhance application responsiveness and performance.
