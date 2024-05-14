@@ -12,7 +12,7 @@
           "package_name": "com.nativeninjas.prod1"
         }
       },
-      "oauth_client": [],
+      "oauth_client": ["436837612352-e0gshpgmmb4dg0hmbsla3rtln14euqmg.apps.googleusercontent.com"],
       "api_key": [
         {
           "current_key": "AIzaSyDKZC7E_3Xex9If_-iUPrU9rkDxtouoG-Y"

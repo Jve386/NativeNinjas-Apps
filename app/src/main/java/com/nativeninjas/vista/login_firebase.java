@@ -22,7 +22,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.nativeninjas.prod1.R;
 
 public class login_firebase extends AppCompatActivity {
@@ -34,13 +37,16 @@ public class login_firebase extends AppCompatActivity {
     private Button btn_Gmail;
     private EditText usuario, email, password;
     private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase; // Referencia a Firebase Database
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_firebase);
 
+        // Inicializa Firebase Auth y Database
         mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
         usuario = findViewById(R.id.editTextUser);
         email = findViewById(R.id.EditTextEmail);
@@ -73,6 +79,18 @@ public class login_firebase extends AppCompatActivity {
                     Toast.makeText(login_firebase.this, "Ingresar los datos", Toast.LENGTH_SHORT).show();
                 } else {
                     loginUser(emailUser, passUser);
+                }
+            }
+        });
+
+        btn_Registro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String emailUser = email.getText().toString().trim();
+                if (emailUser.isEmpty()) {
+                    Toast.makeText(login_firebase.this, "Ingresar el email", Toast.LENGTH_SHORT).show();
+                } else {
+                    registerUser(emailUser);
                 }
             }
         });
@@ -139,5 +157,36 @@ public class login_firebase extends AppCompatActivity {
                 Toast.makeText(login_firebase.this, "Error al iniciar sesión", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void registerUser(final String emailUser) {
+        // Crea un nuevo usuario en Firebase Authentication
+        mAuth.createUserWithEmailAndPassword(emailUser, "defaultPassword")
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Obtiene el UID del usuario
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            if (user != null) {
+                                String userId = user.getUid();
+                                // Guarda el email en Firebase Realtime Database
+                                mDatabase.child("users").child(userId).child("email").setValue(emailUser)
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
+                                                    Toast.makeText(login_firebase.this, "Email guardado en Firebase", Toast.LENGTH_SHORT).show();
+                                                } else {
+                                                    Toast.makeText(login_firebase.this, "Error al guardar el email", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                        });
+                            }
+                        } else {
+                            Toast.makeText(login_firebase.this, "Error al registrar el usuario", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 }
