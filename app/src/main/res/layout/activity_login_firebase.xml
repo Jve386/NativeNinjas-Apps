@@ -8,7 +8,7 @@
     android:background="#3D8C82"
     android:foregroundTint="#00695C"
     android:visibility="visible"
-    tools:context=".Prueva_login">
+    tools:context=".login_firebase">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,23 +30,32 @@
             app:srcCompat="@drawable/logonativeninjas" />
 
         <EditText
-            android:id="@+id/EmailEditText"
-            android:layout_width="330dp"
+            android:id="@+id/editTextUser"
+            android:layout_width="380dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="36dp"
+            android:ems="10"
+            android:hint="Usuario"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/EditTextEmail"
+            android:layout_width="380dp"
             android:layout_height="55dp"
             android:layout_marginStart="40dp"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="40dp"
             android:layout_marginBottom="40dp"
             android:ems="10"
-            android:hint="usuario / email"
+            android:hint="Email"
             android:inputType="textEmailAddress"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:visibility="visible"
             tools:visibility="visible" />
 
         <EditText
-            android:id="@+id/password"
-            android:layout_width="336dp"
+            android:id="@+id/EditTextPassword"
+            android:layout_width="380dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="35dp"
             android:ems="10"
@@ -60,13 +69,13 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/ACCEDER"
+                android:id="@+id/btn_Acceder"
                 android:layout_width="196dp"
                 android:layout_height="wrap_content"
                 android:text="ACCEDER" />
 
             <Button
-                android:id="@+id/REGISTRO"
+                android:id="@+id/btn_Registro"
                 android:layout_width="171dp"
                 android:layout_height="match_parent"
                 android:layout_marginHorizontal="10dp"
@@ -78,9 +87,10 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/Gmail"
+            android:id="@+id/btn_Gmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:layout_weight="1"
             android:text="GMAIL"
             app:icon="@android:drawable/ic_dialog_email" />
