@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Piedrapapeltijeras</string>
 
-    <string name="text1_splash">APP Producto 1</string>
+    <string name="text1_splash">APP Producto 3</string>
     <string name="text2_splash">Desarrollado por NativeNinjas</string>
 
     <string name="btn1_main">Comenzar</string>
@@ -29,4 +29,9 @@
     <string name="btn2_final">Volver al menú</string>
     <string name="btn3_final">Salir</string>
     <string name="btn4_final">Capturar pantalla</string>
+
+    <string name="default_web_client_id">piedrapapeltijeras-8e6be</string>// Reemplaza YOUR_OAUTH_CLIENT_ID con el ID de cliente OAuth 2.0 obtenido de la Consola de Google Cloud.... el ID de cliente real.
+//Cómo usar la firma de apps de Play
+ //   Si publicaste tu app con la firma de apps de Play, un requisito cuando se usa Android App Bundle, puedes obtener tu SHA-1 desde Google Play Console en la página Versión > Configuración > Integridad de la app.
+
 </resources>

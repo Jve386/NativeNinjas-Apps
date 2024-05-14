@@ -47,6 +47,9 @@ dependencies {
     implementation ("com.squareup.retrofit2:adapter-rxjava3:2.9.0") // para cuando usemos Retrofit
     implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
     implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-auth")
     implementation("com.google.firebase:firebase-auth:23.0.0")
     implementation("com.google.firebase:firebase-analytics:22.0.0")
+    implementation("com.google.android.gms:play-services-auth:21.1.1")
+    implementation("com.google.android.gms:play-services-auth:20.3.0")
 }
