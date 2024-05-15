@@ -35,7 +35,7 @@ public class login_firebase extends AppCompatActivity {
     private Button btn_Acceder;
     private Button btn_Registro;
     private Button btn_Gmail;
-    private EditText usuario, email, password;
+    private EditText email, password;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase; // Referencia a Firebase Database
 
@@ -48,7 +48,6 @@ public class login_firebase extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        usuario = findViewById(R.id.editTextUser);
         email = findViewById(R.id.EditTextEmail);
         password = findViewById(R.id.EditTextPassword);
         btn_Acceder = findViewById(R.id.btn_Acceder);
