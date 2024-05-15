@@ -1,8 +1,9 @@
 plugins {
-    alias(libs.plugins.androidApplication)
+//    alias(libs.plugins.androidApplication)
+    id("com.android.application")
     id("com.google.gms.google-services")
 }
-
+// alias(libs.plugins.androidApplication)
 android {
     namespace = "com.nativeninjas.prod1"
     compileSdk = 34
@@ -51,8 +52,5 @@ dependencies {
     implementation("com.google.firebase:firebase-auth:23.0.0")
     implementation("com.google.firebase:firebase-analytics:22.0.0")
     implementation("com.google.android.gms:play-services-auth:21.1.1")
-    implementation("com.google.android.gms:play-services-auth:20.3.0")
     implementation("com.google.firebase:firebase-database:20.0.5")
-    implementation("com.google.firebase:firebase-auth:21.0.8")
-
 }

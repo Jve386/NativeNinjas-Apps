@@ -29,7 +29,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.nativeninjas.prod1.R;
 
 public class login_firebase extends AppCompatActivity {
-    private static final int RC_SIGN_IN = 1;
+    private static final int RC_SIGN_IN = 100;
     private static final String TAG = "login_firebase";
     private GoogleSignInClient mGoogleSignInClient;
     private Button btn_Acceder;
