@@ -40,7 +40,7 @@ public class Splash extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(Splash.this, login_firebase.class);
+                Intent intent = new Intent(Splash.this, LoginFirebase.class);
                 startActivity(intent);
                 finish();
             }

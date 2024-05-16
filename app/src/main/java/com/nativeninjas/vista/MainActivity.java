@@ -17,13 +17,34 @@ import com.nativeninjas.prod1.R;
 
 import java.util.Locale;
 
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+
 public class MainActivity extends AppCompatActivity {
     private Button btnJugar, btnSalir, btnRanking, btnAjustes;
+    private GoogleSignInClient mGoogleSignInClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Configure Google Sign In
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         Configuration config = getResources().getConfiguration();
         Locale locale = config.locale;
@@ -87,11 +108,20 @@ public class MainActivity extends AppCompatActivity {
         builder.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                // Salir de la aplicación
-                finishAffinity(); // Cerrar todas las actividades de la aplicación
+                // Salir de la aplicación y desloguear
+                signOut();
             }
         });
         builder.show();
+    }
+
+    private void signOut() {
+        mGoogleSignInClient.signOut().addOnCompleteListener(this, task -> {
+            // Mostrar Toast después de desloguearse
+            Toast.makeText(MainActivity.this, "Deslogueado de Google", Toast.LENGTH_SHORT).show();
+            // Salir de la aplicación
+            finishAffinity();
+        });
     }
 
     @Override
@@ -111,16 +141,16 @@ public class MainActivity extends AppCompatActivity {
             builder.show();
             return true;
         } else if (id == R.id.exit) {
-            finishAffinity();
+            mostrarDialogoConfirmacion();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
         MyApplication.getInstance().getMediaPlayer().stop();
     }
-
 }

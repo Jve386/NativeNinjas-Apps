@@ -28,16 +28,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.nativeninjas.prod1.R;
 
-public class login_firebase extends AppCompatActivity {
-    private static final int RC_SIGN_IN = 100;
-    private static final String TAG = "login_firebase";
-    private GoogleSignInClient mGoogleSignInClient;
-    private Button btn_Acceder;
-    private Button btn_Registro;
-    private Button btn_Gmail;
-    private EditText email, password;
+public class LoginFirebase extends AppCompatActivity {
+
     private FirebaseAuth mAuth;
-    private DatabaseReference mDatabase; // Referencia a Firebase Database
+    private DatabaseReference mDatabase;
+    private EditText email, password;
+    private Button btn_Acceder, btn_Registro, btn_Gmail;
+    private GoogleSignInClient mGoogleSignInClient;
+    private static final int RC_SIGN_IN = 9001;
+    private static final String TAG = "LoginFirebase";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +74,7 @@ public class login_firebase extends AppCompatActivity {
                 String passUser = password.getText().toString().trim();
 
                 if (emailUser.isEmpty() || passUser.isEmpty()) {
-                    Toast.makeText(login_firebase.this, "Ingresar los datos", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginFirebase.this, "Ingresar los datos", Toast.LENGTH_SHORT).show();
                 } else {
                     loginUser(emailUser, passUser);
                 }
@@ -86,10 +85,12 @@ public class login_firebase extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String emailUser = email.getText().toString().trim();
-                if (emailUser.isEmpty()) {
-                    Toast.makeText(login_firebase.this, "Ingresar el email", Toast.LENGTH_SHORT).show();
+                String passUser = password.getText().toString().trim();
+
+                if (emailUser.isEmpty() || passUser.isEmpty()) {
+                    Toast.makeText(LoginFirebase.this, "Ingresar los datos", Toast.LENGTH_SHORT).show();
                 } else {
-                    registerUser(emailUser);
+                    registerUser(emailUser, passUser);
                 }
             }
         });
@@ -116,7 +117,7 @@ public class login_firebase extends AppCompatActivity {
             firebaseAuthWithGoogle(account.getIdToken());
         } catch (ApiException e) {
             Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
-            Toast.makeText(login_firebase.this, "Falló la autenticación con Google", Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginFirebase.this, "Falló la autenticación con Google", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -128,11 +129,11 @@ public class login_firebase extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             Log.d(TAG, "signInWithCredential:success");
-                            startActivity(new Intent(login_firebase.this, MainActivity.class));
+                            startActivity(new Intent(LoginFirebase.this, MainActivity.class));
                             finish();
                         } else {
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            Toast.makeText(login_firebase.this, "Falló la autenticación con Google", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginFirebase.this, "Falló la autenticación con Google", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -143,24 +144,24 @@ public class login_firebase extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    startActivity(new Intent(login_firebase.this, MainActivity.class));
+                    startActivity(new Intent(LoginFirebase.this, MainActivity.class));
                     finish();
-                    Toast.makeText(login_firebase.this, "Bienvenido", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginFirebase.this, "Bienvenido", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(login_firebase.this, "Error", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginFirebase.this, "Error", Toast.LENGTH_SHORT).show();
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(login_firebase.this, "Error al iniciar sesión", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginFirebase.this, "Error al iniciar sesión", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private void registerUser(final String emailUser) {
+    private void registerUser(final String emailUser, String passUser) {
         // Crea un nuevo usuario en Firebase Authentication
-        mAuth.createUserWithEmailAndPassword(emailUser, "defaultPassword")
+        mAuth.createUserWithEmailAndPassword(emailUser, passUser)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -175,15 +176,15 @@ public class login_firebase extends AppCompatActivity {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
                                                 if (task.isSuccessful()) {
-                                                    Toast.makeText(login_firebase.this, "Email guardado en Firebase", Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(LoginFirebase.this, "Email guardado en Firebase", Toast.LENGTH_SHORT).show();
                                                 } else {
-                                                    Toast.makeText(login_firebase.this, "Error al guardar el email", Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(LoginFirebase.this, "Error al guardar el email", Toast.LENGTH_SHORT).show();
                                                 }
                                             }
                                         });
                             }
                         } else {
-                            Toast.makeText(login_firebase.this, "Error al registrar el usuario", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginFirebase.this, "Error al registrar el usuario", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
