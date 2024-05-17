@@ -1,6 +1,5 @@
 package com.nativeninjas.vista;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -18,7 +17,7 @@ import com.nativeninjas.prod1.R;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
-    private Button btnJugar, btnSalir, btnRanking, btnAjustes;
+    private Button btnJugar, btnSalir, btnRanking, btnAjustes, btnUbicacion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         btnSalir = findViewById(R.id.btnSalir);
         btnRanking = findViewById(R.id.btnRanking);
         btnAjustes = findViewById(R.id.btnAjustes);
+        btnUbicacion = findViewById(R.id.btnUbicacion);
 
         btnJugar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,6 +69,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Iniciar la actividad de ajustes
                 Intent intent = new Intent(MainActivity.this, AjustesActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnUbicacion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Iniciar la actividad de estadísticas
+                Intent intent = new Intent(MainActivity.this, UbicacionActivity.class);
                 startActivity(intent);
             }
         });

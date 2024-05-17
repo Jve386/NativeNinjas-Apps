@@ -24,7 +24,7 @@
         android:layout_marginBottom="16dp"
         android:background="#0000ff"
         android:text="@string/btn1_main"
-        android:textSize="30dp"
+        android:textSize="25dp"
         android:textStyle="bold" />
     <Button
         android:id="@+id/btnRanking"
@@ -34,7 +34,19 @@
         android:layout_centerHorizontal="true"
         android:background="#0000ff"
         android:text="@string/btn2_main"
-        android:textSize="30dp"
+        android:textSize="25dp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btnUbicacion"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btnRanking"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:background="#0000ff"
+        android:text="@string/btn5_main"
+        android:textSize="25dp"
         android:textStyle="bold" />
 
     <Button
@@ -43,22 +55,22 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/btnAjustes"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:background="#0000ff"
         android:text="@string/btn4_main"
-        android:textSize="30dp"
+        android:textSize="25dp"
         android:textStyle="bold" />
 
     <Button
         android:id="@+id/btnAjustes"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/btnRanking"
+        android:layout_below="@id/btnUbicacion"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:background="#0000ff"
         android:text="@string/btn3_main"
-        android:textSize="30dp"
+        android:textSize="25dp"
         android:textStyle="bold" />
 
 </RelativeLayout>
