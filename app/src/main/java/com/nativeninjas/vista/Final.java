@@ -116,7 +116,7 @@ public class Final extends AppCompatActivity {
 
             // Paso 4: Mostrar la notificación
             notificationManager.notify(1, builder.build());
-            notificaciones.showNotification("Record superado, ole tus huevos!");
+            notificaciones.showNotification("Record superado, Muy bien jugado!");
         } else {
             // Si la puntuación final no es mayor, mostrar "Record no superado"
             txtRecord.setText("Record no superado");

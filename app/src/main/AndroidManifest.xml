@@ -27,6 +27,9 @@
         android:theme="@style/Theme.Piedrapapeltijeras"
         tools:targetApi="31">
         <activity
+            android:name="com.nativeninjas.vista.LoginFirebase"
+            android:exported="false" />
+        <activity
             android:name="com.nativeninjas.vista.paginaWebView"
             android:exported="false" />
         <activity

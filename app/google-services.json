@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "436837612352",
+    "project_id": "piedrapapeltijeras-8e6be",
+    "storage_bucket": "piedrapapeltijeras-8e6be.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:436837612352:android:ae045cbe2e379d12e898a5",
+        "android_client_info": {
+          "package_name": "com.nativeninjas.prod1"
+        }
+      },
+      "oauth_client": ["436837612352-e0gshpgmmb4dg0hmbsla3rtln14euqmg.apps.googleusercontent.com"],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKZC7E_3Xex9If_-iUPrU9rkDxtouoG-Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
