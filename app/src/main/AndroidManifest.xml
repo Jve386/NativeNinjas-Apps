@@ -11,9 +11,10 @@
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ANSWER_PHONE_CALLS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
 
     <application
         android:name="com.nativeninjas.MyApplication"
@@ -54,6 +55,9 @@
             android:name="com.nativeninjas.vista.AjustesActivity"
             android:exported="false" />
         <activity
+            android:name="com.nativeninjas.vista.UbicacionActivity"
+            android:exported="false" />
+        <activity
             android:name="com.nativeninjas.vista.Splash"
             android:exported="true">
             <intent-filter>
@@ -62,6 +66,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="${API_KEY}"/>
 
         <service
             android:name="com.nativeninjas.vista.Partida"

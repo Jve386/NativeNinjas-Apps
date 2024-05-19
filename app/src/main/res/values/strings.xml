@@ -1,13 +1,14 @@
 <resources>
     <string name="app_name">Piedrapapeltijeras</string>
 
-    <string name="text1_splash">APP Producto 3</string>
+    <string name="text1_splash">APP Producto 1</string>
     <string name="text2_splash">Desarrollado por NativeNinjas</string>
 
     <string name="btn1_main">Comenzar</string>
     <string name="btn2_main">Ranking</string>
     <string name="btn3_main">Ajustes</string>
     <string name="btn4_main">Salir</string>
+    <string name="btn5_main">Ubicación</string>
 
     <string name="btn_ranking">Volver</string>
 
@@ -31,5 +32,4 @@
     <string name="btn4_final">Capturar pantalla</string>
 
     <string name="default_web_client_id">436837612352-e0gshpgmmb4dg0hmbsla3rtln14euqmg.apps.googleusercontent.com</string>
-
 </resources>
