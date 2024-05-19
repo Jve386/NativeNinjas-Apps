@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         tvQuote.setOnClickListener(new View.OnClickListener() {
-            @Override
+           @Override
             public void onClick(View v) {
                 Log.d("MainActivity", "TextView clicked");
                 quoteViewModel.randomQuote();
