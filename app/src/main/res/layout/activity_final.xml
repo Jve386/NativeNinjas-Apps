@@ -61,7 +61,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/btn3_final"
-        android:layout_below="@id/btnMain"
+        android:layout_below="@id/btnPremio"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp" />
 
@@ -69,6 +69,16 @@
         android:id="@+id/btnScreenShoot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/btn4_final" />
+        android:text="@string/btn4_final"
+        />
+
+    <Button
+        android:id="@+id/btnPremio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Premio"
+        android:layout_below="@id/btnMain"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"/>
 
 </RelativeLayout>

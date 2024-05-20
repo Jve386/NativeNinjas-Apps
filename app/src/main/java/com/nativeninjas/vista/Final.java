@@ -53,7 +53,7 @@ import java.util.Locale;
 public class Final extends AppCompatActivity {
 
     private TextView txtPuntuacionFinal, txtRecord, txtPuntuacionMasAlta;
-    private Button btnMain, btnSalir, btnReintentar, btnScreenShoot;
+    private Button btnMain, btnSalir, btnReintentar, btnScreenShoot, btnPremio;
     private Controlador controlador;
     private static final int REQUEST_CODE_WRITE_EXTERNAL_STORAGE = 1;
     // The indices for the projection array above.
@@ -78,6 +78,7 @@ public class Final extends AppCompatActivity {
         btnSalir = findViewById(R.id.btnSalir);
         btnReintentar = findViewById(R.id.btnReintentar);
         btnScreenShoot= findViewById(R.id.btnScreenShoot);
+        btnPremio = findViewById(R.id.btnPremio);
         Notificaciones notificaciones = new Notificaciones(this); // Reemplaza "context" con el contexto adecuado, como por ejemplo "this" si estás dentro de una actividad
 
         // Recuperar la puntuación final de la actividad anterior
@@ -134,6 +135,15 @@ public class Final extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Final.this, Jugador.class);
+                startActivity(intent);
+                finish(); // Finalizar la actividad actual
+            }
+        });
+
+        btnPremio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Final.this, Premios.class);
                 startActivity(intent);
                 finish(); // Finalizar la actividad actual
             }

@@ -15,7 +15,6 @@
     <uses-permission android:name="android.permission.ANSWER_PHONE_CALLS" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-
     <application
         android:name="com.nativeninjas.MyApplication"
         android:allowBackup="true"
@@ -28,14 +27,19 @@
         android:theme="@style/Theme.Piedrapapeltijeras"
         tools:targetApi="31">
         <activity
+            android:name="com.nativeninjas.vista.Premios"
+            android:exported="false" />
+        <activity
             android:name="com.nativeninjas.vista.LoginFirebase"
             android:exported="false" />
         <activity
             android:name="com.nativeninjas.vista.paginaWebView"
             android:exported="false" />
+        <!--
         <activity
             android:name="com.nativeninjas.vista.webview"
             android:exported="false" />
+        -->
         <activity
             android:name="com.nativeninjas.vista.Jugador"
             android:exported="false" />
@@ -66,11 +70,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="${API_KEY}"/>
-
         <service
             android:name="com.nativeninjas.vista.Partida"
             android:exported="false"
