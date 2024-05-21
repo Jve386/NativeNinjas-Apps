@@ -65,7 +65,7 @@ public class Partida extends AppCompatActivity {
     private Random random = new Random();
     private String movimientoComputadora = opciones[random.nextInt(opciones.length)];
     private int contadorMonedas = 0;
-    private int intentos = 1;
+    private int intentos = 3;
     private int puntuacionMasAltaEnBBDD; // Variable para almacenar la puntuación más alta de la base de datos
     private Controlador controlador; // Agregar una instancia de Controlador
     private MediaPlayer mpGanar, mpPerder, mpEmpate; // Agregar reproductores de audio
@@ -240,36 +240,6 @@ public class Partida extends AppCompatActivity {
         }
     }
 
-    private void generarPremio() {
-        // Inicializa Firebase
-        FirebaseApp.initializeApp(this);
-
-        // Inicializa Firestore
-        db = FirebaseFirestore.getInstance();
-
-        // Datos a guardar
-        Map<String, Object> user = new HashMap<>();
-        user.put("firstName", "Ismael");
-        user.put("lastName", "Sanchez");
-        user.put("born", 1989);
-
-        // Guarda el documento en la colección "users"
-        db.collection("users")
-                .add(user)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Log.d("MainActivity", "DocumentSnapshot added with ID: " + documentReference.getId());
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w("MainActivity", "Error adding document", e);
-                    }
-                });
-    }
-
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void jugar(String movimientoJugador) {
         // Obtener el movimiento de la computadora
@@ -286,13 +256,9 @@ public class Partida extends AppCompatActivity {
             mpGanar.start(); // Reproducir el sonido de ganar
             aplicarAnimacionGanar(); // Aplicar la animación de ganar
 
-            //Se genera un premio aleatorio
-            generarPremio();
-
         } else {
             txtResultado.setText("¡Perdiste!\n" + movimientoComputadoraTexto);
             intentos--;
-            generarPremio();
             if (intentos == 0) {
                 // Si el jugador pierde todos los Intentos, guardar la puntuación final y abrir la actividad Final
                 guardarPuntuacionFinal(contadorMonedas);

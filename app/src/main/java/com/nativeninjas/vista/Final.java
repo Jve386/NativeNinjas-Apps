@@ -139,11 +139,12 @@ public class Final extends AppCompatActivity {
                 finish(); // Finalizar la actividad actual
             }
         });
-
+        
         btnPremio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Final.this, Premios.class);
+                intent.putExtra("puntuacionFinal", puntuacionFinal);
                 startActivity(intent);
                 finish(); // Finalizar la actividad actual
             }
