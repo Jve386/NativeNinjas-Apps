@@ -2,7 +2,9 @@ package com.nativeninjas.vista;
 
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Random;
 
 
@@ -36,6 +38,10 @@ import androidx.appcompat.app.ActionBar;
 
 import android.media.MediaPlayer;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.nativeninjas.controlador.Controlador;
 
 import androidx.core.app.ActivityCompat;
@@ -71,6 +77,7 @@ public class Partida extends AppCompatActivity {
     private double latitude;
     private double longitude;
 
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -248,6 +255,7 @@ public class Partida extends AppCompatActivity {
             contadorMonedas++;
             mpGanar.start(); // Reproducir el sonido de ganar
             aplicarAnimacionGanar(); // Aplicar la animación de ganar
+
         } else {
             txtResultado.setText("¡Perdiste!\n" + movimientoComputadoraTexto);
             intentos--;
