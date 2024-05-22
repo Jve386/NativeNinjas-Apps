@@ -3,10 +3,19 @@ Rock, Paper, Scissors app featuring random selection for gameplay against the co
 
 <img src="img/demo2.gif" alt="Demo GIF" width="600" height="400">
 
+## Video Presentation of the Finished Product
+Watch the video presentation [here](https://youtu.be/ewxQMzPjMV4).
+
 ## 🗡️Technologies Used 
-- Language: Java
+- Language: Java, Kotlin
 - Data Persistence: SQLite (In-memory game state)
 - Design Pattern: MVC (Model-View-Controller)
+- Network Calls: Retrofit
+- JSON Parsing: Moshi/Gson
+- Backend: Firebase
+- Authentication: Google Sign-In
+- Maps: Google Maps API
+- Concurrency: RxJava
 
 ## 🗡️ Functional Requirements
 - Detailed mockup serves as a visual guide for UI design.
@@ -75,3 +84,11 @@ This approach ensures that database query operations are performed efficiently a
 - Notification on Victory: Displayed a basic notification upon winning, featuring the app's icon, and showing the resolution time upon tapping.
 - Multilingual Support: Automatically detects and uses the player's device language, with manual language selection available within the app.
 - Concurrent Programming: Implemented concurrent programming techniques using Android services to enhance application responsiveness and performance.
+
+## 🗡️ New Features (Product 3):
+- Random Phrases at App Start: Utilizes JSON and Retrofit for random phrases displayed at the start, implemented with Kotlin and coroutines.
+- External Libraries: Integrated Moshi/Gson and Retrofit for improved app performance, including a Retrofit call to Firebase through REST.
+- Firebase Database: Implemented Firebase for data storage, including player authentication via Google Sign-In.
+- Player Communication: Backend storage and retrieval of top ten scores, along with a common prize for players.
+- Google Maps API: Added to locate players, storing their locations in Firebase.
+- Rewards Screen: Allows players to redeem points for items stored in Firebase.
