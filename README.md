@@ -6,6 +6,9 @@ Rock, Paper, Scissors app featuring random selection for gameplay against the co
 ## Video Presentation of the Finished Product
 Watch the video presentation [here](https://youtu.be/ewxQMzPjMV4).
 
+## 🗡️Releases 
+The app has three versions available, which can be accessed through the [Releases](https://github.com/Jve386/NativeNinjas-Apps/releases) page: Product 1, Product 2, and Product 3.
+
 ## 🗡️Technologies Used 
 - Language: Java, Kotlin
 - Data Persistence: SQLite (In-memory game state)
@@ -73,7 +76,7 @@ This approach ensures that database query operations are performed efficiently a
 - Retrieving Scores: Scores stored in the SQLite database are retrieved to display the highest scores on the application's home screen.
 
 
-## 🗡️ Additional Features Added (Product 2):
+## 🗡️ Features added for [Product 2](https://github.com/Jve386/NativeNinjas-Apps/releases/tag/Producto2)
 - Background Music: Implemented background music with the ability to toggle it on or off. Users can select background music from device media resources or use the official game melody.
 - Multimedia Best Practices: Implemented proper multimedia programming practices, including handling events such as incoming calls or alarm sounds.
 - Animations and Sounds: Applied animations and sounds to the movements of game pieces.
@@ -85,7 +88,7 @@ This approach ensures that database query operations are performed efficiently a
 - Multilingual Support: Automatically detects and uses the player's device language, with manual language selection available within the app.
 - Concurrent Programming: Implemented concurrent programming techniques using Android services to enhance application responsiveness and performance.
 
-## 🗡️ New Features (Product 3):
+## 🗡️ Features added for [Product 3](https://github.com/Jve386/NativeNinjas-Apps/releases/tag/Producto3)
 - Random Phrases at App Start: Utilizes JSON and Retrofit for random phrases displayed at the start, implemented with Kotlin and coroutines.
 - External Libraries: Integrated Moshi/Gson and Retrofit for improved app performance, including a Retrofit call to Firebase through REST.
 - Firebase Database: Implemented Firebase for data storage, including player authentication via Google Sign-In.
